@@ -20,15 +20,32 @@ import { Button } from "@/components/ui/button";
 import { Apple, DirectRight } from "iconsax-react";
 import { cn } from "@/lib/utils";
 import { FcGoogle } from "react-icons/fc";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
 
 const formSchema = z
   .object({
-    name: z.string().min(3),
+    name: z.string().min(3, { message: "Please enter your name" }),
+    dob: z.date().refine(
+      (date) => {
+        const currentDate = new Date();
+        return currentDate.getFullYear() - date.getFullYear() >= 18;
+      },
+      { message: "You must be at least 18 years old." }
+    ),
     email: z.string().email(),
     password: z.string().min(8, {
       message: "Password must be at least 8 characters long",
     }),
-    confirmPassword: z.string().min(8),
+    confirmPassword: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters long" }),
     terms: z.boolean({
       required_error: "Please agree to the terms and policy",
     }),
@@ -45,10 +62,10 @@ const SignOutPage = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      dob: new Date(),
       email: "",
       password: "",
       confirmPassword: "",
-      terms: false,
     },
   });
 
@@ -66,7 +83,7 @@ const SignOutPage = () => {
           alt="LiteCoin"
           width={80}
           height={80}
-          className="ml-8"
+          className="ml-8 animate-pulse"
         />
         <h1 className="text-5xl font-medium text-primary leading-snug">
           Sign up with <br /> Eloquent
@@ -75,7 +92,7 @@ const SignOutPage = () => {
           Already have an account? click here to{" "}
           <Link
             href="/sign-in"
-            className="text-[#4168B7] dark:text-[#A77700] cursor-pointer hover:underline"
+            className="text-[#4168B7] dark:text-[#A77700] hover:underline"
           >
             Sign in.
           </Link>
@@ -92,23 +109,65 @@ const SignOutPage = () => {
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col space-y-8"
             >
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        disabled={isLoading}
-                        placeholder="Full name"
-                        className="border-t-0 font-medium text-primary rounded-none border-x-0 border-b-[#A77700] border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="flex space-x-8">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          disabled={isLoading}
+                          placeholder="Full name"
+                          className="border-t-0 font-medium text-primary rounded-none border-x-0 dark:border-b-[#A77700] border-b-[#F7931A80] border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent bg-transparent focus-visible:ring-offset-0"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="dob"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant="outline"
+                              className={cn(
+                                "w-[240px] text-left font-medium bg-transparent rounded-none border-t-0 border-x-0 border-b-2 dark:border-b-[#A77700] border-b-[#F7931A80]",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, "PPP")
+                              ) : (
+                                <span>Date of Birth</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            disabled={(date) =>
+                              date > new Date() || date < new Date("1900-01-01")
+                            }
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
               <FormField
                 control={form.control}
                 name="email"
@@ -119,7 +178,7 @@ const SignOutPage = () => {
                         type="email"
                         disabled={isLoading}
                         placeholder="Email Address"
-                        className="border-t-0 font-medium text-primary rounded-none border-x-0 border-b-[#A77700] border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                        className="border-t-0 font-medium text-primary rounded-none border-x-0 dark:border-b-[#A77700] border-b-[#F7931A80] border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent bg-transparent focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
@@ -137,7 +196,7 @@ const SignOutPage = () => {
                         disabled={isLoading}
                         placeholder="Password"
                         type="password"
-                        className="border-t-0 font-medium text-primary rounded-none border-x-0 border-b-[#A77700] border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                        className="border-t-0 font-medium text-primary rounded-none border-x-0 dark:border-b-[#A77700] border-b-[#F7931A80] border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent bg-transparent focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
@@ -155,7 +214,7 @@ const SignOutPage = () => {
                         disabled={isLoading}
                         placeholder="Confirm Password"
                         type="password"
-                        className="border-t-0 font-medium text-primary rounded-none border-x-0 border-b-[#A77700] border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                        className="border-t-0 font-medium text-primary rounded-none border-x-0 dark:border-b-[#A77700] border-b-[#F7931A80] border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent bg-transparent focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>

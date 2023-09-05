@@ -51,7 +51,7 @@ const SignInPage = () => {
           alt="LiteCoin"
           width={80}
           height={80}
-          className="ml-8"
+          className="ml-8 animate-pulse"
         />
         <h1 className="text-5xl font-medium text-primary leading-snug">
           Sign in to <br /> your account.
@@ -87,7 +87,7 @@ const SignInPage = () => {
                         type="email"
                         disabled={isLoading}
                         placeholder="Email Address"
-                        className="border-t-0 font-medium text-primary rounded-none border-x-0 border-b-[#A77700] border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                        className="border-t-0 font-medium text-primary rounded-none border-x-0 dark:border-b-[#A77700] border-b-[#F7931A80] border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent bg-transparent focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
@@ -105,7 +105,7 @@ const SignInPage = () => {
                         disabled={isLoading}
                         placeholder="Password"
                         type="password"
-                        className="border-t-0 font-medium text-primary rounded-none border-x-0 border-b-[#A77700] border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                        className="border-t-0 font-medium text-primary rounded-none border-x-0 dark:border-b-[#A77700] border-b-[#F7931A80] border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent bg-transparent focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>

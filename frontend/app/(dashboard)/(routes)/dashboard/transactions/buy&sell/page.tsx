@@ -9,6 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,7 +30,9 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 const formSchema = z.object({
-  coinType: z.string().min(1),
+  coinType: z.string().min(1, {
+    message: "Coin type is required",
+  }),
   amount: z.coerce.number().min(0),
 });
 
@@ -103,6 +106,7 @@ const BuyandSellPage = () => {
                             </SelectGroup>
                           </SelectContent>
                         </Select>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
