@@ -1,19 +1,30 @@
+from django.http import HttpResponse
 from django.shortcuts import render
-from djoser.views import UserViewSet
-from rest_framework.response import Response
-from rest_framework import status
- 
-class ActivateUser(UserViewSet):
-    def get_serializer(self, *args, **kwargs):
-        serializer_class = self.get_serializer_class()
-        kwargs.setdefault('context', self.get_serializer_context())
- 
-        # this line is the only change from the base implementation.
-        kwargs['data'] = {"uid": self.kwargs['uid'], "token": self.kwargs['token']}
- 
-        return serializer_class(*args, **kwargs)
- 
-    def activation(self, request, uid, token, *args, **kwargs):
-        super().activation(request, *args, **kwargs)
-        return Response(status=status.HTTP_204_NO_CONTENT)
-# Create your views here.
+import requests
+
+def activate_user(request, uid, token):
+    # Handle your GET request logic here
+    # Extracted `uid` and `token` are available as function parameters
+
+    # Construct the POST request data
+    post_data = {
+        'uid': uid,
+        'token': token,
+    }
+
+    # Define the URL for the POST request
+    post_url = 'http://localhost:8000/auth/users/activation/'
+
+    # Make the POST request
+    response = requests.post(post_url, data=post_data)
+
+    # Handle the response as needed
+    if response.status_code == 204:
+        # POST request was successful
+
+        # Render the 'activation.html' template
+        return render(request, 'activation/activation.html', {})
+
+    else:
+        # POST request failed
+        return HttpResponse('GET request successful, but POST request failed', status=500)

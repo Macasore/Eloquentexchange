@@ -70,7 +70,7 @@ ROOT_URLCONF = 'auth_system.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'build')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -181,7 +181,10 @@ DJOSER = {
     'EMAIL' : {
         'activation': 'accounts.email.ActivationEmail',
         'confirmation': 'accounts.email.ConfirmationEmail',
-    }  
+    },
+    'TEMPLATES': {
+        'activation': 'activation/activation.html',  # Use your custom activation template
+    }
     
 }
 
