@@ -21,6 +21,7 @@ from accounts import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('send-email/', views.send_email, name='send-email'),
     path('activate/<str:uid>/<str:token>', views.activate_user, name='activate_user'),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
