@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 from accounts import views
+# from accounts.views import RedirectSocial
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +26,7 @@ urlpatterns = [
     path('activate/<str:uid>/<str:token>', views.activate_user, name='activate_user'),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
+    path('auth/', include('djoser.social.urls')),
 ]
 
 urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]

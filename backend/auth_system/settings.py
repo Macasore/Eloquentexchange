@@ -54,10 +54,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -176,14 +176,16 @@ STATICFILES_DIRS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated'
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
     ),
 }
 SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('JWT',),
+    'AUTH_HEADER_TYPES': ('JWT', 'Bearer'),
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_TOKEN_CLASSES': (
@@ -197,6 +199,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# white_list = ['http://localhost:8000/accounts/profile/']
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
@@ -216,6 +220,7 @@ DJOSER = {
         'current_user': 'accounts.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000/accounts/profile/'],
     'EMAIL' : {
         'activation': 'accounts.email.ActivationEmail',
         'confirmation': 'accounts.email.ConfirmationEmail',
@@ -225,7 +230,10 @@ DJOSER = {
     }
     
 }
-
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile']
+SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
 
 
 AUTH_USER_MODEL = 'accounts.UserAccount'
