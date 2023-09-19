@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'social_django',
     'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist'
+    'rest_framework_simplejwt.token_blacklist',
+    'drf_yasg'
     
     
 ]
@@ -195,7 +196,8 @@ SIMPLE_JWT = {
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
-    'django.contrib.auth.backends.ModelBackend'
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.twitter.TwitterOAuth'
 )
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -220,7 +222,8 @@ DJOSER = {
         'current_user': 'accounts.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000'],
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000/dashboard'],
+    'SOCIAL_AUTH_LOGIN_REDIRECT_URL': 'http://localhost:3000/dashboard',
     'EMAIL' : {
         'activation': 'accounts.email.ActivationEmail',
         'confirmation': 'accounts.email.ConfirmationEmail',
