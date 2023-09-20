@@ -182,7 +182,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication'
+        'rest_framework.authentication.SessionAuthentication',
     ),
 }
 SIMPLE_JWT = {
@@ -222,7 +222,17 @@ DJOSER = {
         'current_user': 'accounts.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000/dashboard'],
+    'SOCIAL_AUTH_PROVIDERS': {
+        'google': {
+            'APP': {
+                'client_id': os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY'),
+                'secret': os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET'),
+            },
+            'SCOPE': ['email', 'profile', 'openid'],
+            'AUTH_PARAMS': {'access_type': 'offline'},
+        },
+    },
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000/dashboard', 'http://127.0.0.1:8000/callback/twitter/'],
     'SOCIAL_AUTH_LOGIN_REDIRECT_URL': 'http://localhost:3000/dashboard',
     'EMAIL' : {
         'activation': 'accounts.email.ActivationEmail',
@@ -239,6 +249,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile']
 SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
+TWITTER_AUTH_CALLBACK_URL= os.getenv('TWITTER_AUTH_CALLBACK_URL')
 
 
 AUTH_USER_MODEL = 'accounts.UserAccount'

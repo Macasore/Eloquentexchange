@@ -8,10 +8,14 @@ from rest_framework.decorators import api_view, permission_classes
 from .serializers import EmailSerializer
 from django.conf import settings
 from rest_framework.permissions import AllowAny
-from django.views import View
-from django.http import JsonResponse
-import os
-from urllib.parse import urlparse, parse_qs
+from requests_oauthlib import OAuth1
+from urllib.parse import urlencode
+from rest_framework.views import APIView
+from django.http.response import  HttpResponseRedirect
+from social_django.utils import load_backend, load_strategy
+from social_core.exceptions import AuthTokenError
+from social_core.backends.oauth import BaseOAuth1
+
 
 def activate_user(request, uid, token):
     # Handle your GET request logic here
@@ -67,10 +71,73 @@ def send_email(request):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     else:
         return requests.Response(serializer.errors, status=400)
-    
-def csrf_token_view(request):
-    return render(request, 'csrf_token_page.html')
 
+@permission_classes([AllowAny])
+class TwitterAuthRedirectEndpoint(APIView):
+    def get(self, request, *args, **kwargs):
+        try:
+            oauth = OAuth1(
+                      settings.SOCIAL_AUTH_TWITTER_KEY, 
+                      client_secret=settings.SOCIAL_AUTH_TWITTER_SECRET
+            )
+             #Step one: obtaining request token
+            request_token_url = "https://api.twitter.com/oauth/request_token"
+            data = urlencode({
+                      "oauth_callback": settings.TWITTER_AUTH_CALLBACK_URL
+            })
+            response = requests.post(request_token_url, auth=oauth, data=data)
+            response.raise_for_status()
+            response_split = response.text.split("&")
+            oauth_token = response_split[0].split("=")[1]
+            oauth_token_secret = response_split[1].split("=")[1]  
+
+                #Step two: redirecting user to Twitter
+            twitter_redirect_url = (
+         f"https://api.twitter.com/oauth/authenticate?oauth_token={oauth_token}"
+            )
+            return HttpResponseRedirect(twitter_redirect_url)
+        except ConnectionError:
+             html="<html><body>You have no internet connection</body></html>"
+             return HttpResponse(html, status=403)
+        except:
+              html="<html><body>Something went wrong.Try again.</body></html>"
+              return HttpResponse(html, status=403)
+          
+@permission_classes([AllowAny])
+class TwitterCallbackEndpoint(APIView):
+    def get(self, request, *args, **kwargs):
+        try:
+            oauth_token = request.query_params.get("oauth_token")
+            oauth_verifier = request.query_params.get("oauth_verifier")
+
+            # Load the strategy and backend
+            strategy = load_strategy(request)
+            backend = load_backend(strategy, BaseOAuth1)
+            
+            # Exchange the OAuth token for access and refresh tokens
+            user = backend.do_auth(
+                access_token=oauth_token,
+                response_type='token',
+                redirect_uri=None,  # Twitter does not require this
+                user=None
+            )
+
+            # You can now access user.tokens['oauth_token'] and user.tokens['oauth_token_secret']
+
+            # Redirect to your desired URL
+            redirect_url = "http://localhost:3000"
+            return HttpResponseRedirect(redirect_url)
+
+        except AuthTokenError:
+            return HttpResponse(
+                "<html><body>Failed to exchange tokens. Please try again.</body></html>",
+                status=403
+            )
+        except Exception as e:
+            return HttpResponse(
+                f"<html><body>Something went wrong: {e}</body></html>",
+                status=403
+            )
 # class RedirectSocial(View):
 #     def get(self, request, *args, **kwargs):
 #         code, state = str(request.GET['code']), str(request.GET['state'])
