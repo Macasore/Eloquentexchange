@@ -49,14 +49,15 @@ INSTALLED_APPS = [
     'social_django',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-    'drf_yasg'
+    'drf_yasg',
+    'oauth2_provider'
     
     
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -171,7 +172,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR)
 ]
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
@@ -186,7 +187,7 @@ REST_FRAMEWORK = {
     ),
 }
 SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('JWT', 'Bearer'),
+    'AUTH_HEADER_TYPES': ('JWT',),
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_TOKEN_CLASSES': (
@@ -222,16 +223,18 @@ DJOSER = {
         'current_user': 'accounts.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
-    'SOCIAL_AUTH_PROVIDERS': {
-        'google': {
-            'APP': {
-                'client_id': os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY'),
-                'secret': os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET'),
-            },
-            'SCOPE': ['email', 'profile', 'openid'],
-            'AUTH_PARAMS': {'access_type': 'offline'},
-        },
-    },
+    # 'SOCIAL_AUTH_PROVIDERS': {
+    #     'google': {
+    #         'APP': {
+    #             'client_id': os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY'),
+    #             'secret': os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET'),
+    #         },
+    #         'SCOPE': ['email', 'profile', 'openid'],
+    #         'AUTH_PARAMS': {'access_type': 'offline'},
+    #     },
+    # },
+    'SOCIAL_AUTH_RAISE_EXCEPTIONS': False,
+    'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
     'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000/dashboard', 'http://127.0.0.1:8000/callback/twitter/'],
     'SOCIAL_AUTH_LOGIN_REDIRECT_URL': 'http://localhost:3000/dashboard',
     'EMAIL' : {
@@ -243,13 +246,16 @@ DJOSER = {
     }
     
 }
+SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 SOCIAL_AUTH_TWITTER_KEY = os.getenv('SOCIAL_AUTH_TWITTER_KEY')
 SOCIAL_AUTH_TWITTER_SECRET = os.getenv('SOCIAL_AUTH_TWITTER_SECRET')
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile']
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid']
 SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
 TWITTER_AUTH_CALLBACK_URL= os.getenv('TWITTER_AUTH_CALLBACK_URL')
-
+GOOGLE_TOKEN_URL = 'https://accounts.google.com/o/oauth2/token'
+SOCIAL_AUTH_ALLOWED_REDIRECT_URIS =  ['http://localhost:3000/dashboard', 'http://127.0.0.1:8000/callback/twitter/']
+GOOGLE_AUTHORIZATION_BASE_URL = 'https://accounts.google.com/o/oauth2/auth'
 
 AUTH_USER_MODEL = 'accounts.UserAccount'
