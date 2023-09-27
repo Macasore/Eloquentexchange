@@ -67,8 +67,7 @@ const SignUpPage = () => {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-      const res = await axios.post(signupUrl, data).then((res) => res.data);
-      router.push(res);
+      const res = await axios.post(signupUrl, data);
       toast.success("Account created successfully");
       form.reset();
     } catch (err: any) {
@@ -258,7 +257,7 @@ const SignUpPage = () => {
         <div className="flex gap-x-8 justify-center">
           <div
             onClick={() => {
-              router.push(googleOAuthUrl);
+              router.push(signupUrl);
             }}
             className="w-10 h-10 rounded-lg border-[#A77700] border flex items-center justify-center cursor-pointer group"
           >
