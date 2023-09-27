@@ -235,7 +235,7 @@ def webhook(request):
                 'Pro': os.getenv("Pro")
             }
             link = package_link[selected_package]
-            message_body = f"Thank you for purchasing the {selected_package} Package.\n Please click here to join your program: {link}"
+            message_body = f"Thank you for purchasing the {selected_package} Package.\n Please click here to join your program: {link}\n\n Thanks for using our site.\n The EloquentExchange team"
             subject= "ELOQUENT EXCHANGE PACKAGE LINK"
             
             try:
