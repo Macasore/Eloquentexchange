@@ -1,6 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
+PLAN_CHOICES = (
+    ("BEGINNERS", "Beginners"),
+    ("INTERMEDIATE", "Intermediate"),
+    ("PRO", "Pro"),
+)
+
 class UserAccountManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -45,4 +51,23 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         return self.email
+
+
+class Payment(models.Model):
+    amount = models.DecimalField(max_digits=15, decimal_places=2)
+    email = models.EmailField()
+    reference = models.CharField(max_length=100)
+    status = models.CharField(max_length=20, default='pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+    package = models.CharField(max_length=20, choices=PLAN_CHOICES)
     
+    def __str__(self):
+        return f"Payment {self.reference}"
+    
+    
+class Package(models.Model):
+    name = models.CharField(max_length=20)
+    price = models.DecimalField(max_digits=100, decimal_places=2)
+    
+    def __str__(self):
+        return self.name

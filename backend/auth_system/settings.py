@@ -177,10 +177,10 @@ STATICFILES_DIRS = [
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
+    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.AllowAny'
-    ],
+        'rest_framework.permissions.AllowAny',
+    ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -192,7 +192,7 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_TOKEN_CLASSES': (
         'rest_framework_simplejwt.tokens.AccessToken',
-    )
+    ),
 }
 
 AUTHENTICATION_BACKENDS = (
@@ -235,7 +235,7 @@ DJOSER = {
     # },
     'SOCIAL_AUTH_RAISE_EXCEPTIONS': False,
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000/dashboard', 'http://127.0.0.1:8000/callback/twitter/'],
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000/dashboard', 'http://127.0.0.1:8000/callback/twitter'],
     'SOCIAL_AUTH_LOGIN_REDIRECT_URL': 'http://localhost:3000/dashboard',
     'EMAIL' : {
         'activation': 'accounts.email.ActivationEmail',
@@ -255,7 +255,11 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/userinfo.ema
 SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
 TWITTER_AUTH_CALLBACK_URL= os.getenv('TWITTER_AUTH_CALLBACK_URL')
 GOOGLE_TOKEN_URL = 'https://accounts.google.com/o/oauth2/token'
-SOCIAL_AUTH_ALLOWED_REDIRECT_URIS =  ['http://localhost:3000/dashboard', 'http://127.0.0.1:8000/callback/twitter/']
+SOCIAL_AUTH_ALLOWED_REDIRECT_URIS =  ['http://localhost:3000/dashboard', 'http://127.0.0.1:8000/callback/twitter']
 GOOGLE_AUTHORIZATION_BASE_URL = 'https://accounts.google.com/o/oauth2/auth'
 
+# Ideally, these values should be stored as environment variables, and loaded like so:
+
+FLUTTERWAVE_PUBLIC_KEY = os.getenv('FLUTTERWAVE_PUBLIC_KEY')
+FLUTTERWAVE_SECRET_KEY = os.getenv('FLUTTERWAVE_SECRET_KEY')
 AUTH_USER_MODEL = 'accounts.UserAccount'
