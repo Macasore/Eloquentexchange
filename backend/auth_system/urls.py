@@ -5,7 +5,7 @@ from accounts import views
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from accounts.views import PaymentInitiationView, PackageViewSet, webhook
+from accounts.views import PaymentInitiationView, PackageViewSet, webhook, CoinViewSet, PurchaseCryptoView, WalletViewSet, sellcrypto, CryptoTransactionListView
 from rest_framework.routers import DefaultRouter
 
 schema_view = get_schema_view(
@@ -23,6 +23,8 @@ schema_view = get_schema_view(
 
 router = DefaultRouter()
 router.register(r'package', PackageViewSet)
+router.register(r'coin', CoinViewSet)
+router.register(r'wallet', WalletViewSet)
 
 
 urlpatterns = [
@@ -34,6 +36,7 @@ urlpatterns = [
         views.TwitterAuthRedirectEndpoint.as_view(),
         name="twitter-login-redirect",
    ),
+    path('sell/', sellcrypto, name='sell-crypto'),
     path('auth/test-webhook/', webhook, name='webhook'),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
@@ -42,6 +45,9 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('initiate-payment/', PaymentInitiationView.as_view(), name='initiate-payment'),
+    path('buy/', PurchaseCryptoView.as_view(), name='buy-crypto'),
+    path('crypto-transactions/', CryptoTransactionListView.as_view(), name='crypto-transaction-list'),
+
 ]
 
 urlpatterns += router.urls
