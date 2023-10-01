@@ -8,6 +8,5 @@ pip install -r requirements.txt
 python create_superuser.py
 # Apply database migrations
 
-python manage.py migrate
 
 # Create a Django superuser
