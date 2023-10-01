@@ -7,6 +7,8 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from accounts.views import PaymentInitiationView, PackageViewSet, webhook, CoinViewSet, PurchaseCryptoView, WalletViewSet, sellcrypto, CryptoTransactionListView
 from rest_framework.routers import DefaultRouter
+from django.conf import settings
+from django.conf.urls.static import static
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -36,6 +38,7 @@ urlpatterns = [
         views.TwitterAuthRedirectEndpoint.as_view(),
         name="twitter-login-redirect",
    ),
+    
     path('sell/', sellcrypto, name='sell-crypto'),
     path('auth/webhook/', webhook, name='webhook'),
     path('auth/', include('djoser.urls')),
@@ -51,5 +54,5 @@ urlpatterns = [
 ]
 
 urlpatterns += router.urls
-
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]
