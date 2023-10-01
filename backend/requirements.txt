@@ -10,7 +10,7 @@ defusedxml==0.7.1
 Deprecated==1.2.14
 dj-database-url==2.1.0
 Django==3.2.21
-django-cors-headers==4.2.0
+django-cors-headers==4.1.0
 django-oauth-toolkit==2.3.0
 django-rest-paystack==2.2.2
 django-rest-swagger==2.2.0
