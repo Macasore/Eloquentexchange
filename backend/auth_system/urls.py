@@ -37,7 +37,7 @@ urlpatterns = [
         name="twitter-login-redirect",
    ),
     path('sell/', sellcrypto, name='sell-crypto'),
-    path('auth/test-webhook/', webhook, name='webhook'),
+    path('auth/webhook/', webhook, name='webhook'),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     path('auth/', include('djoser.social.urls')),
