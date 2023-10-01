@@ -35,7 +35,7 @@ packaging==23.1
 Pillow==9.5.0
 psycopg2==2.9.7
 psycopg2-binary==2.9.7
-pycparser==2.21
+pycparser==2.8.0
 PyJWT==0.21.1
 python-dotenv==1.0.0
 python-magic-bin==0.4.14
