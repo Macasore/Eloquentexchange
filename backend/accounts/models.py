@@ -108,8 +108,8 @@ class BuyCrypto(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     date = models.DateTimeField(auto_now_add=True)
     trans_type = models.CharField(max_length=20)
-    network = models.CharField()
-    wallet_address = models.CharField()
+    network = models.CharField(max_length=20)
+    wallet_address = models.CharField(max_length=100)
     
     def __str__(self):
         return self.coin_type
