@@ -16,7 +16,7 @@ firstname = os.getenv('DJANGO_SUPERUSER_FIRSTNAME')
 lastname = os.getenv('DJANGO_SUPERUSER_LASTNAME')
 
 # Create the superuser
-if not User.objects.filter(username=username).exists():
+if not User.objects.filter(email=email).exists():
     User.objects.create_superuser(username, email, password, first_name=firstname, last_name=lastname)
     print('Superuser created successfully')
 else:
