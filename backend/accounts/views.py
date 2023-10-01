@@ -15,21 +15,12 @@ from django.http.response import  HttpResponseRedirect
 from social_django.utils import load_backend, load_strategy
 from social_core.exceptions import AuthTokenError
 from social_core.backends.oauth import BaseOAuth1
-from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
 from rest_framework import response, status
 from rest_framework.views import APIView
-from requests_oauthlib import OAuth2Session
-from oauth2_provider.models import RefreshToken
 from .models import Payment, Package, Coin, BuyCrypto, Wallets, SellCrypto
-from django.shortcuts import redirect
 import uuid
 from rest_framework import viewsets
 import os, json
-from django.views.decorators.csrf import csrf_exempt
-from imghdr import what
-from django.db.models import Q
-import magic
 from django.core.files.storage import FileSystemStorage
 import urllib.parse
 
