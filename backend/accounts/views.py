@@ -152,12 +152,12 @@ class PaymentInitiationView(APIView):
         amount = request.data.get('amount')
         reference = str(uuid.uuid4())
         currency = request.data.get('currency')
-        email = request.data.get('email')
         package = request.data.get('package')
         user = request.user
 
-        payment = Payment.objects.create(amount=amount, email=email, status='pending', reference=reference, package=package, user=user)
-        serializer = PaymentSerializer(payment)
+        payment = Payment.objects.create(amount=amount, status='pending', reference=reference, package=package, user=user)
+        user = payment.user
+        email = user.email
         
         flutterwave_response = self.initialize_payment(payment.reference, amount, email, currency)
         if flutterwave_response.get('status'):
@@ -249,7 +249,7 @@ def webhook(request):
                 [email],
                 fail_silently=False,
                 )
-                return Response({'message': 'Email sent successfully'})
+                return Response({'message': 'package purchase success'})
             except Exception as e:
                 return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Payment.DoesNotExist:
@@ -269,7 +269,7 @@ def webhook(request):
                     [settings.EMAIL_HOST_USER],
                     fail_silently=False,
                     )
-                    return Response({'message': 'Email sent successfully'})
+                    return Response({'message': 'coin purchase success'})
                 except Exception as e:
                     return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             except purchase.DoesNotExist:
@@ -419,3 +419,66 @@ class CryptoTransactionListView(generics.ListAPIView):
                 combined_data.append(sell_serializer.data)
 
         return Response(combined_data, status=status.HTTP_200_OK)
+    
+@api_view(['POST'])
+def purchasealternative(request):
+    purpose_of_payment = request.data.get('purpose_of_payment')
+    item = request.data.get('item3')
+    transaction_name = request.data.get('transaction_name')
+    amount = request.data.get('amount')
+    network = request.data.get('network')
+    wallet_address = request.data.get('wallet_address')
+    coin_type = request.data.get('coin_type')
+    reference = str(uuid.uuid4())
+    package = request.data.get('package')
+    user = request.user
+    
+    if purpose_of_payment == 'purchase-coin':
+        trans_type = 'Bought'
+        purchase = BuyCrypto.objects.create(amount=amount, status='pending', reference=reference,
+                                            coin_type=coin_type,
+                                            network=network, wallet_address=wallet_address,
+                                            trans_type=trans_type, user=user)
+        user = purchase.user
+        email = user.email
+        coin = Coin.objects.get(name=purchase.coin_type)
+        message_body = f"Coin: {purchase.coin_type}\n Network: {purchase.network}\n Wallet-Address: {purchase.wallet_address}\n Amount-paid: {purchase.amount}$\n Rate: {coin.rate}$ per 1 {coin.name}\n Email: {email}\n TRANSACTION NAME: {transaction_name}"
+        subject= "COIN PURCHASE"
+        try:
+            email = EmailMessage(
+            subject,
+            message_body,
+            settings.EMAIL_HOST_USER,
+            [settings.EMAIL_HOST_USER],
+            )
+            email.send()
+            # file.close()
+            
+            return JsonResponse({'message': 'coin purchase successful'})
+        except Exception as e:
+                return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR) 
+    
+    elif purpose_of_payment == 'purchase-package':
+         payment = Payment.objects.create(amount=amount, status='pending',
+                                          reference=reference, package=package,
+                                          user=user)
+         user = payment.user
+         email = user.email
+         message_body = f"Amount Paid: {amount}$\n Package: {package}\n Email: {email}\n TRANSACTION NAME: {transaction_name}"
+         subject= "PACKAGE PURCHASE"
+         
+         try:
+             send_mail(
+             subject,
+             message_body,
+             settings.EMAIL_HOST_USER,
+             [settings.EMAIL_HOST_USER],
+             fail_silently=False,
+             )
+             return Response({'message': 'package purchase successful'})
+         except Exception as e:
+             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+         
+    else:
+        return Response("Invalid purpose")
+    

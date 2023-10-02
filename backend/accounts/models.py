@@ -67,7 +67,6 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 class Payment(models.Model):
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=15, decimal_places=2)
-    email = models.EmailField()
     reference = models.CharField(max_length=100)
     status = models.CharField(max_length=20, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)

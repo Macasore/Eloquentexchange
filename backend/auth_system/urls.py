@@ -5,7 +5,7 @@ from accounts import views
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from accounts.views import PaymentInitiationView, PackageViewSet, webhook, CoinViewSet, PurchaseCryptoView, WalletViewSet, sellcrypto, CryptoTransactionListView
+from accounts.views import PaymentInitiationView, PackageViewSet, webhook, CoinViewSet, PurchaseCryptoView, WalletViewSet, sellcrypto, CryptoTransactionListView, purchasealternative
 from rest_framework.routers import DefaultRouter
 from django.conf import settings
 from django.conf.urls.static import static
@@ -50,6 +50,7 @@ urlpatterns = [
     path('initiate-payment/', PaymentInitiationView.as_view(), name='initiate-payment'),
     path('buy/', PurchaseCryptoView.as_view(), name='buy-crypto'),
     path('crypto-transactions/', CryptoTransactionListView.as_view(), name='crypto-transaction-list'),
+    path('payment_alternative/', purchasealternative, name='payment-alternative'),
 
 ]
 
