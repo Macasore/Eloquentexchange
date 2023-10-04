@@ -27,7 +27,7 @@ import string
 import random
 from django.dispatch import receiver
 from djoser import signals
-
+from django.views.decorators.csrf import csrf_exempt
 
 
 def activate_user(request, uid, token):
@@ -218,6 +218,7 @@ class WalletViewSet(viewsets.ReadOnlyModelViewSet):
 # @csrf_exempt
 @api_view(['POST'])
 @permission_classes([AllowAny])
+@csrf_exempt
 def webhook(request):
     secret_hash = os.getenv("FLW_SECRET_HASH")
     signature = request.headers.get("verifi-hash")

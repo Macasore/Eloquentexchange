@@ -126,8 +126,8 @@ DATABASES = {
         'HOST': os.getenv('DB_HOST')
     }
 }
-# database_url = os.getenv("DATABASE_URL")
-# DATABASES["default"] = dj_database_url.parse(database_url)
+database_url = os.getenv("DATABASE_URL")
+DATABASES["default"] = dj_database_url.parse(database_url)
 
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
 EMAIL_HOST = os.getenv('EMAIL_HOST')
