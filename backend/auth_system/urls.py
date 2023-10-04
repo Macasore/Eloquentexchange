@@ -5,7 +5,7 @@ from accounts import views
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from accounts.views import PaymentInitiationView, PackageViewSet, webhook, CoinViewSet, PurchaseCryptoView, WalletViewSet, sellcrypto, CryptoTransactionListView, purchasealternative
+from accounts.views import PaymentInitiationView, PackageViewSet, webhook, CoinViewSet, PurchaseCryptoView, WalletViewSet, sellcrypto, CryptoTransactionListView, purchasealternative, get_referral_code, CustomUserViewSet, BoughtCryptoTransactionListView, SoldCryptoTransactionListView
 from rest_framework.routers import DefaultRouter
 from django.conf import settings
 from django.conf.urls.static import static
@@ -29,6 +29,7 @@ router.register(r'coin', CoinViewSet)
 router.register(r'wallet', WalletViewSet)
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('send-email/', views.send_email, name='send-email'),
@@ -38,7 +39,8 @@ urlpatterns = [
         views.TwitterAuthRedirectEndpoint.as_view(),
         name="twitter-login-redirect",
    ),
-    
+    path('auth/register/', CustomUserViewSet.as_view({'post': 'create'}), name='user-register'),
+    path('get-referral-codes/', views.get_referral_codes, name='get-referral-codes'),
     path('sell/', sellcrypto, name='sell-crypto'),
     path('auth/webhook/', webhook, name='webhook'),
     path('auth/', include('djoser.urls')),
@@ -50,10 +52,13 @@ urlpatterns = [
     path('initiate-payment/', PaymentInitiationView.as_view(), name='initiate-payment'),
     path('buy/', PurchaseCryptoView.as_view(), name='buy-crypto'),
     path('crypto-transactions/', CryptoTransactionListView.as_view(), name='crypto-transaction-list'),
+    path('crypto-transactions/bought/', BoughtCryptoTransactionListView.as_view(), name='bought-transactions'),
+    path('crypto-transactions/sold/', SoldCryptoTransactionListView.as_view(), name='sold-transactions'),
     path('payment_alternative/', purchasealternative, name='payment-alternative'),
+    path('referral_code/', get_referral_code, name="referral-code")
 
 ]
 
 urlpatterns += router.urls
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]
+# urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]

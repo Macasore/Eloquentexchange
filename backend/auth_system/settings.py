@@ -126,8 +126,8 @@ DATABASES = {
         'HOST': os.getenv('DB_HOST')
     }
 }
-database_url = os.getenv("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse(database_url)
+# database_url = os.getenv("DATABASE_URL")
+# DATABASES["default"] = dj_database_url.parse(database_url)
 
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
 EMAIL_HOST = os.getenv('EMAIL_HOST')
@@ -223,7 +223,7 @@ DJOSER = {
     'SERIALIZERS': {
         'user_create': 'accounts.serializers.UserCreateSerializer',
         'user': 'accounts.serializers.UserCreateSerializer',
-        'current_user': 'accounts.serializers.UserCreateSerializer',
+        'current_user': 'accounts.serializers.UserCreateSerialize',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
     # 'SOCIAL_AUTH_PROVIDERS': {
@@ -238,8 +238,8 @@ DJOSER = {
     # },
     'SOCIAL_AUTH_RAISE_EXCEPTIONS': False,
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000/dashboard', 'http://127.0.0.1:8000/callback/twitter'],
-    'SOCIAL_AUTH_LOGIN_REDIRECT_URL': 'http://localhost:3000/dashboard',
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['https://eloquentexchange.org/dashboard', 'http://127.0.0.1:8000/callback/twitter'],
+    'SOCIAL_AUTH_LOGIN_REDIRECT_URL': 'http://eloquentexchange.org/dashboard',
     'EMAIL' : {
         'activation': 'accounts.email.ActivationEmail',
         'confirmation': 'accounts.email.ConfirmationEmail',
@@ -258,7 +258,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/userinfo.ema
 SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
 TWITTER_AUTH_CALLBACK_URL= os.getenv('TWITTER_AUTH_CALLBACK_URL')
 GOOGLE_TOKEN_URL = 'https://accounts.google.com/o/oauth2/token'
-SOCIAL_AUTH_ALLOWED_REDIRECT_URIS =  ['http://localhost:3000/dashboard', 'http://127.0.0.1:8000/callback/twitter']
+SOCIAL_AUTH_ALLOWED_REDIRECT_URIS =  ['https://eloquentexchange.org/dashboard', 'http://127.0.0.1:8000/callback/twitter']
 GOOGLE_AUTHORIZATION_BASE_URL = 'https://accounts.google.com/o/oauth2/auth'
 
 # Ideally, these values should be stored as environment variables, and loaded like so:

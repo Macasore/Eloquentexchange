@@ -1,13 +1,53 @@
 from djoser.serializers import UserCreateSerializer
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import Payment, Package, Coin, BuyCrypto, Wallets, SellCrypto
+from .models import Payment, Package, Coin, BuyCrypto, Wallets, SellCrypto, ReferralCode, UserAccount
+import string
+import random
+from rest_framework.response import Response
+from rest_framework import status
+
 User = get_user_model()
 
-class UserCreateSerializer(UserCreateSerializer):
+class ReferralSerializer(serializers.Serializer):
+    referral_code = serializers.CharField()
+    
+    def validate(self, data):
+        print("it got here")
+        if not ReferralCode.objects.filter(code=data.get('referral_code')).exists():
+            raise serializers.ValidationError("Referral code is invalid")
+        return data
+    
+    def update(self, data):
+        referral_code = data.get('referral_code')
+        referrer = ReferralCode.objects.get(code=referral_code)
+
+        referrer.usage_count += 1
+        referrer.save()
+
+        # Generate a new referral code for the user and associate it with them
+    
+        
+        
+class UserCreateSerializercustom(UserCreateSerializer):
+    referral_code = ReferralSerializer(required=False)
     class Meta(UserCreateSerializer):
         model = User
-        fields = ['id', 'email', 'first_name', 'last_name', 'password']
+        fields = ['id', 'email', 'first_name', 'last_name', 'password', 'referral_code']
+        
+    def create(self, request, *args, **kwargs):
+        print("it got here too")
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # Your custom registration logic here
+
+        # Call the parent class's create method to complete the registration
+        user = serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        
         
 class EmailSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -91,3 +131,6 @@ class CombinedCryptoSerializer(serializers.Serializer):
     #     return combined_data
     buy_data = BuyCryptoSerializer()
     sell_data = SellCryptoSerializerfilter()
+    
+    
+    

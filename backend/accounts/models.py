@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+import string
+import random
 
 PLAN_CHOICES = (
     ("BEGINNERS", "Beginners"),
@@ -45,6 +47,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    referral_code = models.CharField(max_length=10, unique=True, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
@@ -62,6 +65,15 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         return self.email
+    
+    # def save(self, *args, **kwargs):
+    #     if not self.referral_code:
+    #         self.referral_code = self.generate_referral_code()
+    #     super().save(*args, **kwargs)
+        
+    #     ReferralCode.objects.create(code=self.referral_code, owner=self)
+
+    
 
 
 class Payment(models.Model):
@@ -127,5 +139,13 @@ class SellCrypto(models.Model):
     
     def __str__(self):
         return self.coin_type
+    
+class ReferralCode(models.Model):
+    code = models.CharField(max_length=10, unique=True)
+    owner = models.OneToOneField(UserAccount, on_delete=models.CASCADE)
+    usage_count = models.PositiveIntegerField(default=0)
+    
+    def __str__(self):
+        return self.referrer
     
     

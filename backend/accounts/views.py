@@ -15,14 +15,20 @@ from django.http.response import  HttpResponseRedirect
 from social_django.utils import load_backend, load_strategy
 from social_core.exceptions import AuthTokenError
 from social_core.backends.oauth import BaseOAuth1
-from rest_framework import response, status
+from rest_framework import status
 from rest_framework.views import APIView
-from .models import Payment, Package, Coin, BuyCrypto, Wallets, SellCrypto
+from .models import Payment, Package, Coin, BuyCrypto, Wallets, SellCrypto, ReferralCode, UserAccount
 import uuid
 from rest_framework import viewsets
 import os, json
-from django.core.files.storage import FileSystemStorage
 import urllib.parse
+from djoser.views import UserViewSet
+import string
+import random
+from django.dispatch import receiver
+from djoser import signals
+
+
 
 def activate_user(request, uid, token):
     # Handle your GET request logic here
@@ -213,10 +219,10 @@ class WalletViewSet(viewsets.ReadOnlyModelViewSet):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def webhook(request):
-    # secret_hash = os.getenv("FLW_SECRET_HASH")
-    # signature = request.headers.get("verifi-hash")
-    # if signature == None or (signature != secret_hash):
-    #     return HttpResponse(status=401)
+    secret_hash = os.getenv("FLW_SECRET_HASH")
+    signature = request.headers.get("verifi-hash")
+    if signature == None or (signature != secret_hash):
+        return HttpResponse(status=401)
     
     payload = request.body.decode('utf-8')
     response = HttpResponse(status=200)
@@ -292,6 +298,9 @@ class PurchaseCryptoView(APIView):
         wallet_address = request.data.get('wallet_address')
         trans_type = 'Bought'
         user = request.user
+        referrer = ReferralCode.objects.get(owner=user)
+        reward = referrer.usage_count * 0.5
+        amount = float(amount) - reward
 
         purchase = BuyCrypto.objects.create(amount=amount, status='pending', reference=reference, coin_type=coin_type,
                                             network=network, wallet_address=wallet_address,
@@ -420,6 +429,47 @@ class CryptoTransactionListView(generics.ListAPIView):
 
         return Response(combined_data, status=status.HTTP_200_OK)
     
+class BoughtCryptoTransactionListView(generics.ListAPIView):
+    serializer_class = BuyCryptoSerializer  
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        buy_queryset =  BuyCrypto.objects.filter(user=user)
+        
+        combined_data = []
+        
+        for buy_crypto_obj in buy_queryset:
+            buy_serializer = BuyCryptoSerializer(buy_crypto_obj) if buy_crypto_obj else None
+            if buy_serializer:
+                combined_data.append(buy_serializer.data)
+                
+        return Response(combined_data, status=status.HTTP_200_OK)
+        
+        
+    
+    # def list(self, request, *args, **kwargs):
+    #     queryset = self.get_queryset()
+    #     serializer = self.serializer_class(queryset, many=True)
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
+
+class SoldCryptoTransactionListView(generics.ListAPIView):
+    serializer_class = SellCryptoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        sell_queryset = SellCrypto.objects.filter(user=user)
+        
+        combined_data = []
+        
+        for sell_crypto_obj in sell_queryset:
+            sell_serializer = SellCryptoSerializerfilter(sell_crypto_obj) if sell_crypto_obj else None
+            if sell_serializer:
+                combined_data.append(sell_serializer.data)
+
+        return Response(combined_data, status=status.HTTP_200_OK)
+    
 @api_view(['POST'])
 def purchasealternative(request):
     purpose_of_payment = request.data.get('purpose_of_payment')
@@ -481,4 +531,86 @@ def purchasealternative(request):
          
     else:
         return Response("Invalid purpose")
+    
+
+class ApplyReferral(APIView):
+    def post(self, request):
+        referral_code = request.data.get('referral_code')
+        user = request.user
+
+        try:
+            referral = ReferralCode.objects.get(code=referral_code)
+        except ReferralCode.DoesNotExist:
+            return Response({'error': 'Invalid referral code'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if referral.owner == user:
+            return Response({'error': 'Self-referral is not allowed'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Increase the usage count of the referral code
+        referral.usage_count += 1
+        referral.save()
+
+        # Associate the user with the referrer
+        user.referrer = referral.owner
+        user.save()
+
+        return Response({'message': 'Referral applied successfully'}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_referral_code(request):
+    user = request.user
+    referral_code = user.referral_code
+
+    if referral_code:
+        return Response(referral_code)
+    else:
+        return Response({'message': 'Referral code not available'}, status=404)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_referral_codes(request):
+    # Query the database to retrieve all referral codes
+    referral_codes = ReferralCode.objects.all()
+
+    # Extract only the code field from each referral code
+    serialized_data = [code.code for code in referral_codes]
+
+    # Return the JSON response with the serialized data
+    return JsonResponse({"referral_codes": serialized_data})
+
+def generate_referral_code(length=6):
+            characters = string.ascii_letters + string.digits
+            return ''.join(random.choice(characters) for _ in range(length))
+
+class CustomUserViewSet(UserViewSet):
+    @receiver(signals.user_registered)
+    def custom_user_registered(sender, user, request, **kwargs):
+        # Customize the user registration process here
+        # You can access the registered user and the request object
+        referral_code = request.data.get("referral_code")
+        user = user
+        if referral_code:
+            try:
+                referrer = ReferralCode.objects.get(code=referral_code)
+                referrer.usage_count += 1
+                referrer.save()
+                user_2 = UserAccount.objects.get(email=request.data.get("email"))
+                user_2.referral_code = generate_referral_code()
+                user_2.save()
+                ReferralCode.objects.create(code=user_2.referral_code, owner=user_2)
+            except ReferralCode.DoesNotExist:
+               raise ValueError("Referral code does not exist")
+            
+        else:
+            user_1 = UserAccount.objects.get(email=request.data.get("email"))
+            user_1.referral_code = generate_referral_code()
+            user_1.save()
+            
+            new_referral_code = user_1.referral_code
+            referral_owner = user_1  # Change this to the appropriate user
+            ReferralCode.objects.create(code=new_referral_code, owner=referral_owner)
+            
+
+        
+        
     
