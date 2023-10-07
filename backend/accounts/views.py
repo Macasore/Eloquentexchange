@@ -28,6 +28,7 @@ import random
 from django.dispatch import receiver
 from djoser import signals
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpRequest
 
 
 def activate_user(request, uid, token):
@@ -39,9 +40,17 @@ def activate_user(request, uid, token):
         'uid': uid,
         'token': token,
     }
+    current_hostname = request.get_host()
+    base_url = "https://" + current_hostname
+
+    # Define the endpoint specific to activation
+    activation_endpoint = "/auth/users/activation/"
+
+    # Combine the base URL and the activation endpoint to get the post_url
+    post_url = base_url + activation_endpoint
 
     # Define the URL for the POST request
-    post_url = 'http://localhost:8000/auth/users/activation/'
+    # post_url = 'http://localhost:8000/auth/users/activation/'
 
     # Make the POST request
     response = requests.post(post_url, data=post_data)
