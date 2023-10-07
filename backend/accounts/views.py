@@ -586,8 +586,7 @@ def generate_referral_code(length=6):
 class CustomUserViewSet(UserViewSet):
     @receiver(signals.user_registered)
     def custom_user_registered(sender, user, request, **kwargs):
-        # Customize the user registration process here
-        # You can access the registered user and the request object
+        
         referral_code = request.data.get("referral_code")
         user = user
         if referral_code:
