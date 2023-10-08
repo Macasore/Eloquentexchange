@@ -1,7 +1,13 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Building4, Moneys, UserTag, LogoutCurve } from "iconsax-react";
+import {
+  Building4,
+  Moneys,
+  UserTag,
+  LogoutCurve,
+  ArrowLeft2,
+} from "iconsax-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -38,19 +44,37 @@ const Navbar = () => {
   const { resolvedTheme } = useTheme();
   const router = useRouter();
   return (
-    <div className="w-full flex justify-between items-center px-4 min-[915px]:px-8 py-4">
-      <Link href="/dashboard">
-        <div className="">
+    <div className="w-full flex justify-between items-center px-4 min-[915px]:px-8 min-[450px]:py-4 py-8">
+      <div>
+        <div className="min-[450px]:block flex items-center min-[450px]:space-x-0 space-x-32">
+          <ArrowLeft2
+            className="h-6 w-6 min-[450px]:hidden block cursor-pointer"
+            onClick={router.back}
+          />
+          <Link href="/dashboard" className="min-[450px]:block hidden">
+            <Image
+              src={resolvedTheme === "dark" ? "/logo.svg" : "/logo2.svg"}
+              width={200}
+              height={200}
+              alt="Logo"
+              className="object-cover min-[450px]:block hidden"
+            />
+          </Link>
           <Image
-            src={resolvedTheme === "dark" ? "/logo.svg" : "/logo2.svg"}
-            width={200}
-            height={200}
-            alt="Logo"
-            className="object-cover"
+            src={
+              resolvedTheme === "dark"
+                ? "/smal-logo-dark.svg"
+                : "/small-logo.svg"
+            }
+            width={40}
+            height={40}
+            alt="small_logo"
+            className="object-cover min-[450px]:hidden block"
           />
         </div>
-      </Link>
-      <div className="flex gap-x-8 ">
+      </div>
+
+      <div className="flex gap-x-8">
         {routes.map((route) => (
           <Link
             href={route.href}

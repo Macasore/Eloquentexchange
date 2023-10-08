@@ -11,7 +11,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { absoluteUrl, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { sendEmailRoute } from "@/lib/helpers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Data } from "iconsax-react";
@@ -28,9 +29,7 @@ const font = PT_Sans({
 
 const formSchema = z.object({
   name: z.string().min(3, { message: "Enter your name" }),
-  email: z
-    .string({ required_error: "Enter your email" })
-    .email({ message: "Enter your email address" }),
+  email: z.string().email({ message: "Enter your email address" }),
   message: z.string().min(1, { message: "Enter your message" }),
 });
 
@@ -46,11 +45,9 @@ const ContactForm = () => {
 
   const router = useRouter();
 
-  const contactUrl = absoluteUrl("/send-email/");
-
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-      const res = await axios.post(contactUrl, data);
+      const res = await axios.post(sendEmailRoute, data);
       toast.success("Message sent successfully");
       form.reset();
     } catch (err: any) {
