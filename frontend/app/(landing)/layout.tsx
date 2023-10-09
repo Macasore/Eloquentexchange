@@ -6,7 +6,7 @@ export default function LandingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-[url('/background_light.svg')] bg-center bg-no-repeat bg-cover bg-fixed dark:bg-[url('/background_dark.svg')] transition-all">
+    <div className="bg-[url('/light.svg')] bg-center bg-no-repeat bg-cover bg-fixed dark:bg-[url('/dark.svg')] transition-all">
       <LandingNavbar />
       {children}
     </div>
