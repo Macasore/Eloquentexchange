@@ -29,13 +29,11 @@ from django.dispatch import receiver
 from djoser import signals
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpRequest
+from django.shortcuts import redirect
+from django.contrib import messages
 
 
 def activate_user(request, uid, token):
-    # Handle your GET request logic here
-    # Extracted `uid` and `token` are available as function parameters
-
-    # Construct the POST request data
     post_data = {
         'uid': uid,
         'token': token,
@@ -43,24 +41,17 @@ def activate_user(request, uid, token):
     current_hostname = request.get_host()
     base_url = "https://" + current_hostname
 
-    # Define the endpoint specific to activation
+
     activation_endpoint = "/auth/users/activation/"
 
-    # Combine the base URL and the activation endpoint to get the post_url
     post_url = base_url + activation_endpoint
 
-    # Define the URL for the POST request
-    # post_url = 'http://localhost:8000/auth/users/activation/'
-
-    # Make the POST request
     response = requests.post(post_url, data=post_data)
 
-    # Handle the response as needed
     if response.status_code == 204:
-        # POST request was successful
-
-        # Render the 'activation.html' template
-        return render(request, 'activation/activation.html', {})
+        
+        messages.success(request, "Activation Successful")
+        return redirect('https://eloquentexchange.org')
 
     else:
         # POST request failed
@@ -147,7 +138,7 @@ class TwitterCallbackEndpoint(APIView):
             # You can now access user.tokens['oauth_token'] and user.tokens['oauth_token_secret']
 
             # Redirect to your desired URL
-            redirect_url = "http://localhost:3000"
+            redirect_url = "https://eloquentexchange.org"
             return HttpResponseRedirect(redirect_url)
 
         except AuthTokenError:
@@ -205,7 +196,7 @@ class PaymentInitiationView(APIView):
             'customizations': {
                 'title': "EloquentExchange Payment"
             },
-            'redirect_url': 'http://localhost:3000/dashboard'
+            'redirect_url': 'https://eloquentexchange.org/dashboard'
         }
         
         response = requests.post(flutterwave_url, headers=headers, json=data)
@@ -350,7 +341,7 @@ class PurchaseCryptoView(APIView):
             'customizations': {
                 'title': "EloquentExchange Payment"
             },
-            'redirect_url': 'http://localhost:3000/dashboard'
+            'redirect_url': 'https://eloquentexchange.org/dashboard'
         }
         
         response = requests.post(flutterwave_url, headers=headers, json=data)
@@ -577,7 +568,6 @@ def get_referral_code(request):
         return Response({'message': 'Referral code not available'}, status=404)
 
 @api_view(['GET'])
-@permission_classes([AllowAny])
 def get_referral_codes(request):
     # Query the database to retrieve all referral codes
     referral_codes = ReferralCode.objects.all()
