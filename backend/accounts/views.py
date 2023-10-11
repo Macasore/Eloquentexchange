@@ -39,7 +39,10 @@ def activate_user(request, uid, token):
         'token': token,
     }
     current_hostname = request.get_host()
-    base_url = "https://" + current_hostname
+    if settings.DEBUG == True:
+        base_url = "http://" + current_hostname
+    else:
+         base_url = "https://" + current_hostname
 
 
     activation_endpoint = "/auth/users/activation/"
@@ -51,7 +54,11 @@ def activate_user(request, uid, token):
     if response.status_code == 204:
         
         messages.success(request, "Activation Successful")
-        return redirect('https://eloquentexchange.org')
+        # return JsonResponse({
+        #     "message": "Activation Successful",
+        #     "link": "https://eloquentexchange.org/dashboard"
+        # }, status=status.HTTP_200_OK)
+        return redirect("https://eloquentexchange.org/sign-in")
 
     else:
         # POST request failed
@@ -202,15 +209,15 @@ class PaymentInitiationView(APIView):
         response = requests.post(flutterwave_url, headers=headers, json=data)
         return response.json()
     
-    
+@permission_classes([AllowAny]) 
 class PackageViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Package.objects.all()
     serializer_class = PackageSerializer
-    
+@permission_classes([AllowAny])   
 class CoinViewSet(viewsets.ReadOnlyModelViewSet):
     queryset =Coin.objects.all()
     serializer_class = CoinSerializer
-    
+@permission_classes([AllowAny])   
 class WalletViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Wallets.objects.all()
     serializer_class = WalletSerializer
@@ -347,11 +354,6 @@ class PurchaseCryptoView(APIView):
         response = requests.post(flutterwave_url, headers=headers, json=data)
         return response.json()
 
-
-def clean_filename(filename):
-    # Clean the filename by removing special characters and spaces
-    cleaned_filename = os.path.basename(urllib.parse.unquote(filename))
-    return cleaned_filename
 
 @api_view(['POST'])
 def sellcrypto(request):
@@ -567,16 +569,15 @@ def get_referral_code(request):
     else:
         return Response({'message': 'Referral code not available'}, status=404)
 
-@api_view(['GET'])
-def get_referral_codes(request):
-    # Query the database to retrieve all referral codes
-    referral_codes = ReferralCode.objects.all()
-
-    # Extract only the code field from each referral code
-    serialized_data = [code.code for code in referral_codes]
-
-    # Return the JSON response with the serialized data
-    return JsonResponse({"referral_codes": serialized_data})
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def check_referral_code(request):
+    referral_code = request.data.get("referral_code")
+    try:
+        ReferralCode.objects.get(code=referral_code)
+        return HttpResponse(status=status.HTTP_200_OK)
+    except ReferralCode.DoesNotExist:
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
 def generate_referral_code(length=6):
             characters = string.ascii_letters + string.digits
@@ -585,12 +586,15 @@ def generate_referral_code(length=6):
 class CustomUserViewSet(UserViewSet):
     @receiver(signals.user_registered)
     def custom_user_registered(sender, user, request, **kwargs):
-        
         referral_code = request.data.get("referral_code")
         user = user
+        
         if referral_code:
             try:
-                referrer = ReferralCode.objects.get(code=referral_code)
+                try:
+                    referrer = ReferralCode.objects.get(code=referral_code)
+                except:
+                    print("Referral code invalid")
                 referrer.usage_count += 1
                 referrer.save()
                 user_2 = UserAccount.objects.get(email=request.data.get("email"))

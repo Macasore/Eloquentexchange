@@ -40,7 +40,7 @@ urlpatterns = [
         name="twitter-login-redirect",
    ),
     path('auth/register/', CustomUserViewSet.as_view({'post': 'create'}), name='user-register'),
-    path('get-referral-codes/', views.get_referral_codes, name='get-referral-codes'),
+    path('referralcodecheck/', views.check_referral_code, name='check-referral-code'),
     path('sell/', sellcrypto, name='sell-crypto'),
     path('auth/webhook/', webhook, name='webhook'),
     path('auth/', include('djoser.urls')),
