@@ -583,40 +583,40 @@ def generate_referral_code(length=6):
             characters = string.ascii_letters + string.digits
             return ''.join(random.choice(characters) for _ in range(length))
 
-class CustomUserViewSet(UserViewSet):
-    @receiver(signals.user_registered)
-    def custom_user_registered(sender, user, request, **kwargs):
+# class CustomUserViewSet(UserViewSet):
+#     @receiver(signals.user_registered)
+#     def custom_user_registered(sender, user, request, **kwargs):
 
-        referral_code = request.data.get("referral_code")
-        user = user
+#         referral_code = request.data.get("referral_code")
+#         user = user
         
-        if referral_code:
-            try:
-                try:
-                    referrer = ReferralCode.objects.get(code=referral_code)
-                except:
-                    print("Referral code invalid")
-                referrer.usage_count += 1
-                referrer.save()
-                user_2 = UserAccount.objects.get(email=request.data.get("email"))
-                user_2.referral_code = generate_referral_code()
-                user_2.save()
-                ReferralCode.objects.create(code=user_2.referral_code, owner=user_2)
-            except ReferralCode.DoesNotExist:
-               raise ValueError("Referral code does not exist")
+#         if referral_code:
+#             try:
+#                 try:
+#                     referrer = ReferralCode.objects.get(code=referral_code)
+#                 except:
+#                     print("Referral code invalid")
+#                 referrer.usage_count += 1
+#                 referrer.save()
+#                 user_2 = UserAccount.objects.get(email=request.data.get("email"))
+#                 user_2.referral_code = generate_referral_code()
+#                 user_2.save()
+#                 ReferralCode.objects.create(code=user_2.referral_code, owner=user_2)
+#             except ReferralCode.DoesNotExist:
+#                raise ValueError("Referral code does not exist")
             
-        else:
+#         else:
 
-            email=request.data.get("email")
+#             email=request.data.get("email")
 
-            user_1 = UserAccount.objects.get(email=email)
+#             user_1 = UserAccount.objects.get(email=email)
 
-            user_1.referral_code = generate_referral_code()
-            user_1.save()
+#             user_1.referral_code = generate_referral_code()
+#             user_1.save()
             
-            new_referral_code = user_1.referral_code
-            referral_owner = user_1  # Change this to the appropriate user
-            ReferralCode.objects.create(code=new_referral_code, owner=referral_owner)
+#             new_referral_code = user_1.referral_code
+#             referral_owner = user_1  # Change this to the appropriate user
+#             ReferralCode.objects.create(code=new_referral_code, owner=referral_owner)
             
 
         

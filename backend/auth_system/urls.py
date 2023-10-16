@@ -5,7 +5,7 @@ from accounts import views
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from accounts.views import PaymentInitiationView, PackageViewSet, webhook, CoinViewSet, PurchaseCryptoView, WalletViewSet, sellcrypto, CryptoTransactionListView, purchasealternative, get_referral_code, CustomUserViewSet, BoughtCryptoTransactionListView, SoldCryptoTransactionListView
+from accounts.views import PaymentInitiationView, PackageViewSet, webhook, CoinViewSet, PurchaseCryptoView, WalletViewSet, sellcrypto, CryptoTransactionListView, purchasealternative, get_referral_code, BoughtCryptoTransactionListView, SoldCryptoTransactionListView
 from rest_framework.routers import DefaultRouter
 from django.conf import settings
 from django.conf.urls.static import static
@@ -39,7 +39,7 @@ urlpatterns = [
         views.TwitterAuthRedirectEndpoint.as_view(),
         name="twitter-login-redirect",
    ),
-    path('auth/register/', CustomUserViewSet.as_view({'post': 'create'}), name='user-register'),
+   #  path('auth/register/', CustomUserViewSet.as_view({'post': 'create'}), name='user-register'),
     path('referralcodecheck/', views.check_referral_code, name='check-referral-code'),
     path('sell/', sellcrypto, name='sell-crypto'),
     path('auth/webhook/', webhook, name='webhook'),
