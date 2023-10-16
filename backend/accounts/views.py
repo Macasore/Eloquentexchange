@@ -582,7 +582,7 @@ def check_referral_code(request):
 def generate_referral_code(length=6):
             characters = string.ascii_letters + string.digits
             return ''.join(random.choice(characters) for _ in range(length))
-# @permission_classes([AllowAny])
+@permission_classes([AllowAny])
 class CustomUserViewSet(UserViewSet):
     @receiver(signals.user_registered)
     def custom_user_registered(sender, user, request, **kwargs):
