@@ -586,6 +586,7 @@ def generate_referral_code(length=6):
 class CustomUserViewSet(UserViewSet):
     @receiver(signals.user_registered)
     def custom_user_registered(sender, user, request, **kwargs):
+
         referral_code = request.data.get("referral_code")
         user = user
         
@@ -605,7 +606,11 @@ class CustomUserViewSet(UserViewSet):
                raise ValueError("Referral code does not exist")
             
         else:
-            user_1 = UserAccount.objects.get(email=request.data.get("email"))
+
+            email=request.data.get("email")
+
+            user_1 = UserAccount.objects.get(email=email)
+
             user_1.referral_code = generate_referral_code()
             user_1.save()
             
