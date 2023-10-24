@@ -67,7 +67,7 @@ class PackageSerializer(serializers.ModelSerializer):
 class CoinSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coin
-        fields = ('id', 'name', 'rate')
+        fields = ('id', 'name', 'buy_rate', 'sell_rate')
         
 class BuyCryptoSerializer(serializers.ModelSerializer):
     class Meta:

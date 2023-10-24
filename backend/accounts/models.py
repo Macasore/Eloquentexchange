@@ -97,7 +97,9 @@ class Package(models.Model):
     
 class Coin(models.Model):
     name = models.CharField(max_length=20)
-    rate = models.DecimalField(max_digits=100, decimal_places=2)
+    buy_rate = models.DecimalField(max_digits=100, decimal_places=2)
+    sell_rate = models.DecimalField(max_digits=100, decimal_places=2)
+    
     
     def __str__(self):
         return self.name
