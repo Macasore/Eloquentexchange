@@ -259,7 +259,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/userinfo.ema
 SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
 TWITTER_AUTH_CALLBACK_URL= os.getenv('TWITTER_AUTH_CALLBACK_URL')
 GOOGLE_TOKEN_URL = 'https://accounts.google.com/o/oauth2/token'
-SOCIAL_AUTH_ALLOWED_REDIRECT_URIS =  ['https://eloquentexchange.org/dashboard', 'http://127.0.0.1:8000/callback/twitter']
+SOCIAL_AUTH_ALLOWED_REDIRECT_URIS =  ['https://eloquentexchange.org/dashboard']
 GOOGLE_AUTHORIZATION_BASE_URL = 'https://accounts.google.com/o/oauth2/auth'
 
 # Ideally, these values should be stored as environment variables, and loaded like so:
