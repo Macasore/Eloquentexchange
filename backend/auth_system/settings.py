@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(" ")
 
@@ -203,7 +203,6 @@ SIMPLE_JWT = {
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
-    'social_core.backends.twitter.TwitterOAuth'
 )
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
