@@ -1,0 +1,30 @@
+*,
+html,
+body {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Poppins, sans-serif;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.activation {
+  display: flex;
+  flex-direction: column;
+  column-gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 2rem;
+}
