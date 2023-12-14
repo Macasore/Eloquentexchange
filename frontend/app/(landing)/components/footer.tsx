@@ -1,7 +1,10 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+<<<<<<< HEAD
 import Link from "@/node_modules/next/link";
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 import { useTheme } from "next-themes";
 import { PT_Sans } from "next/font/google";
 import Image from "next/image";
@@ -15,6 +18,7 @@ const Footer = () => {
   const { resolvedTheme } = useTheme();
 
   return (
+<<<<<<< HEAD
 <<<<<<< HEAD
     <div className="relative w-50 h-50 my-0 mt-6 flex flex-col items-center space-y-20">
 =======
@@ -48,6 +52,20 @@ const Footer = () => {
       <footer
         className={cn("text-lg mb-3 font-normal text-center", font.className)}
       >
+=======
+    <div className="relative flex flex-col items-center space-y-20">
+      <Image
+        src={
+          resolvedTheme === "light" ? "/contact-light.svg" : "/contact-dark.svg"
+        }
+        width={600}
+        height={600}
+        alt="contact-image"
+        className="object-cover object-center"
+      />
+      <div className="w-full absolute border-[0.5px] rounded-lg bottom-[166px] border-primary"></div>
+      <footer className={cn("text-xl font-normal", font.className)}>
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
         Copyright @ Eloquent Exchange 2023. All Rights Reserved.
       </footer>
     </div>

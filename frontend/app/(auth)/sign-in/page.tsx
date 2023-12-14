@@ -9,7 +9,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+<<<<<<< HEAD
 import { cn, setCookie } from "@/lib/utils";
+=======
+import { cn } from "@/lib/utils";
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DirectRight } from "iconsax-react";
 import { Revalia } from "next/font/google";
@@ -17,10 +21,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
+<<<<<<< HEAD
+=======
+import * as z from "zod";
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
+<<<<<<< HEAD
 import { googleOAuth, signInRoute } from "@/lib/helpers";
 import * as z from "zod";
 <<<<<<< HEAD
@@ -28,6 +37,9 @@ import React, { useEffect, useRef, useState } from "react";
 // import { useState, useEffect } from "React";
 =======
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+import { signInRoute } from "@/lib/helpers";
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -40,9 +52,12 @@ const font = Revalia({ subsets: ["latin"], weight: ["400"] });
 
 const SignInPage = () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [buttonText, setButtonText] = useState("Sign In");
 =======
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
   const { resolvedTheme } = useTheme();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -56,6 +71,7 @@ const SignInPage = () => {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
+<<<<<<< HEAD
       const response = await axios.post(signInRoute, data);
       toast.success("Login Success");
       const { refresh, access } = response.data;
@@ -66,10 +82,16 @@ const SignInPage = () => {
       setButtonText("Sign In");
 =======
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+      const req = await axios.post(signInRoute, data);
+      toast.success("Login Success");
+      form.reset();
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
     } catch (err: any) {
       if (err.response) {
         console.error("Server responded with status:", err.response.status);
         console.error("Response data:", err.response.data);
+<<<<<<< HEAD
 <<<<<<< HEAD
         setButtonText("Sign In");
       } else if (err.request) {
@@ -79,11 +101,16 @@ const SignInPage = () => {
         console.error("Error:", err.message);
         setButtonText("Sign In");
 =======
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
       } else if (err.request) {
         console.error("No response received from the server");
       } else {
         console.error("Error:", err.message);
+<<<<<<< HEAD
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
       }
       toast.error("Login Failed");
     } finally {
@@ -93,6 +120,7 @@ const SignInPage = () => {
 
   const isLoading = form.formState.isSubmitting;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   // const [buttonText, setButtonText] = useState("Next");
   // const changeText = (text: any) => setButtonText(text);
@@ -132,6 +160,10 @@ const SignInPage = () => {
 =======
     <div className="flex min-[1000px]:flex-row flex-col min-[1000px]:justify-between min-[1000px]:items-start items-center pt-12 px-10 relative min-h-screen min-[912px]:bg-[url('/rockets.svg')] bg-none bg-center bg-no-repeat bg-contain bg-fixed">
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+  return (
+    <div className="flex min-[1000px]:flex-row flex-col min-[1000px]:justify-between min-[1000px]:items-start items-center pt-12 px-10 relative min-h-screen bg-[url('/rockets.svg')] bg-center bg-no-repeat bg-contain bg-fixed">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
       <div className="flex-col items-start gap-y-8 min-[1000px]:flex hidden">
         <Image
           src="/coin.svg"
@@ -144,16 +176,22 @@ const SignInPage = () => {
           Sign in to <br /> your account.
         </h1>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <p className="font-medium text-gray-500 text-[24px] leading-snug w-[397px] text-base">
           If you don&apos;t have an account, click here to{" "}
 =======
         <p className="font-medium text-base">
           If you don&apos;t have an account, you can{" "}
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+        <p className="font-medium text-base">
+          If you don&apos;t have an account, you can{" "}
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           <Link
             href="/sign-up"
             className="text-[#4168B7] dark:text-[#A77700] hover:underline"
           >
+<<<<<<< HEAD
 <<<<<<< HEAD
             Sign Up
 =======
@@ -183,6 +221,13 @@ const SignInPage = () => {
           </div>
           <p className="min-[912px]:text-muted-foreground -mt-4 max-[912px]:hidden text-primary">
 =======
+=======
+            Register Here.
+          </Link>
+        </p>
+      </div>
+      <div className="flex flex-col space-y-8 w-[500px]">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
         <div className="flex justify-center">
           <Image
             src={
@@ -196,6 +241,7 @@ const SignInPage = () => {
             className="min-[1000px]:hidden block"
           />
         </div>
+<<<<<<< HEAD
         <div className="flex flex-col space-y-8 min-[912px]:items-start items-center">
           <h1 className="min-[912px]:text-4xl text-3xl font-semibold text-primary">
             Welcome Back!
@@ -205,6 +251,12 @@ const SignInPage = () => {
             Enter your credentials to access your account.
           </p>
         </div>
+=======
+        <h1 className="text-4xl font-semibold text-primary">Welcome Back!</h1>
+        <p className="text-muted-foreground">
+          Enter your credentials to access your account.
+        </p>
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
         <div>
           <Form {...form}>
             <form
@@ -255,6 +307,7 @@ const SignInPage = () => {
               </Link>
               <Button
 <<<<<<< HEAD
+<<<<<<< HEAD
                 onClick={handleClick}
                 style={{ borderRadius: "30px" }}
                 className="w-full text-white py-8 rounded-lg bg-[#4168B7] hover:bg-primary text-lg dark:bg-[#A77700] dark:hover:bg-primary py-8 hover:text-white dark:hover:text-black"
@@ -279,6 +332,8 @@ const SignInPage = () => {
               </div>
             </div>
 =======
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                 className="w-full text-white bg-[#4168B7] hover:bg-primary text-lg dark:bg-[#A77700] dark:hover:bg-primary hover:text-white dark:hover:text-black"
                 variant="default"
               >
@@ -286,10 +341,16 @@ const SignInPage = () => {
                 <DirectRight className="w-5 h-5 ml-2" variant="Linear" />
               </Button>
             </form>
+<<<<<<< HEAD
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
           </Form>
         </div>
         {/* <p
+=======
+          </Form>
+        </div>
+        <p
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           className={cn(
             "text-lg font-medium uppercase text-center",
             font.className
@@ -299,12 +360,20 @@ const SignInPage = () => {
         </p>
         <div className="flex justify-center">
           <div
+<<<<<<< HEAD
             onClick={() => googleCallback()}
+=======
+            onClick={() => {}}
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
             className="w-full h-10 rounded-lg border-[#A77700] border flex items-center justify-center cursor-pointer group"
           >
             <FcGoogle className="w-6 h-6 group-hover:scale-110" />
           </div>
+<<<<<<< HEAD
         </div> */}
+=======
+        </div>
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
       </div>
     </div>
   );

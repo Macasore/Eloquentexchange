@@ -26,12 +26,15 @@ import { ArrowSwapHorizontal, BitcoinRefresh } from "iconsax-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+<<<<<<< HEAD
 import isAuth from "@/components/isAuth";
 import axios from "axios";
 import { getCoinList, sellRoute } from "@/lib/helpers";
 import { getCookie } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 
 const formSchema = z.object({
   bankName: z.string().min(1, { message: "Please provide your bank name" }),
@@ -44,12 +47,25 @@ const formSchema = z.object({
   amount: z.coerce.number().min(0, { message: "Amount cannot be negative" }),
 });
 
+<<<<<<< HEAD
 const Sellpage = () => {
   const router = useRouter();
   const [enteredAmount, setEnteredAmount] = useState<number | undefined>(
     undefined
   );
   const [coinlist, setCoinList] = useState<any[]>([]);
+=======
+const onPaste = () => {
+  navigator.clipboard.readText().then((text) => {
+    if (text) {
+      formSchema.parse(text);
+    }
+  });
+};
+
+const Sellpage = () => {
+  const router = useRouter();
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,6 +75,7 @@ const Sellpage = () => {
       amount: 0,
     },
   });
+<<<<<<< HEAD
 
   const accessToken = getCookie("access_token");
 
@@ -79,6 +96,9 @@ const Sellpage = () => {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     router.push("/dashboard/transactions/buy&sell/sell/sell_confirmation");
   };
+=======
+  const onSubmit = (data: z.infer<typeof formSchema>) => {};
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
   return (
     <div className="flex justify-center flex-col space-y-8 items-center py-12">
       <p className="text-primary font-medium min-[450px]:text-left text-center ">
@@ -117,7 +137,10 @@ const Sellpage = () => {
                           <SelectItem value="ethereum">Ethereum</SelectItem>
                           <SelectItem value="usdt">USDT</SelectItem>
                           <SelectItem value="dodge">Dodge</SelectItem>
+<<<<<<< HEAD
                           <SelectItem value="bnb">BNB</SelectItem>
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -132,6 +155,7 @@ const Sellpage = () => {
                   <FormItem className="space-y-4">
                     <FormLabel className="font-normal flex justify-between">
                       <span>Amount</span>{" "}
+<<<<<<< HEAD
                       <span className="text-primary font-semibold ">
                         <ScrollArea className="w-36 h-5 items-center whitespace-nowrap rounded-md">
                           <div className="w-fit space-x-8 p-0">
@@ -146,6 +170,10 @@ const Sellpage = () => {
                           </div>
                           <ScrollBar orientation="horizontal" />
                         </ScrollArea>
+=======
+                      <span className="text-muted-foreground">
+                        Rate: {OFFICIAL_RATES} / %
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                       </span>
                     </FormLabel>
                     <FormControl>
@@ -174,7 +202,11 @@ const Sellpage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-normal text-primary text-base">
+<<<<<<< HEAD
                       Payment Name
+=======
+                      Bank Name
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                     </FormLabel>
                     <Input
                       className="text-primary text-left font-medium dark:border-primary bg-transparent"
@@ -211,4 +243,8 @@ const Sellpage = () => {
   );
 };
 
+<<<<<<< HEAD
 export default isAuth(Sellpage);
+=======
+export default Sellpage;
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c

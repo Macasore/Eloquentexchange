@@ -7,16 +7,20 @@ import { Button } from "@/components/ui/button";
 import { PT_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+<<<<<<< HEAD
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getPackageListRoute } from "@/lib/helpers";
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 
 const font = PT_Sans({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "700"],
 });
 
+<<<<<<< HEAD
 interface ProPackage {
   name: string;
   price: string;
@@ -81,6 +85,12 @@ const AcademySection = () => {
             Eloquent{" "}
             <span className="text-[#4168B7] mt-4 flex flex-row dark:text-[#A77700]">
 =======
+=======
+const AcademySection = () => {
+  const { theme } = useTheme();
+
+  return (
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
     <div id="academy" className="flex flex-col space-y-32 px-10 mb-20">
       <div className="flex min-[912px]:flex-row-reverse flex-col-reverse justify-between items-center">
         <Image
@@ -91,10 +101,16 @@ const AcademySection = () => {
           className="w-auto h-auto object-cover object-center min-[912px]:block hidden"
         />
         <div className="flex flex-col min-[912px]:space-y-2 space-y-6 min-[912px]:items-start items-center">
+<<<<<<< HEAD
           <h3 className="text-primary min-[912px]:text-5xl text-3xl min-[912px]:font-semibold font-normal leading-snug  min-[912px]:text-left text-center">
             Eloquent{" "}
             <span className="text-[#4168B7] flex flex-row dark:text-[#A77700]">
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+          <h3 className="text-primary min-[912px]:text-3xl text-2xl min-[912px]:font-semibold font-normal leading-snug min-[912px]:w-1/4 w-3/4 min-[912px]:text-left text-center">
+            Eloquent{" "}
+            <span className="text-[#4168B7] dark:text-[#A77700]">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
               Trading Academy.
             </span>
           </h3>
@@ -104,6 +120,7 @@ const AcademySection = () => {
             height={300}
             alt="images"
 <<<<<<< HEAD
+<<<<<<< HEAD
             className="object-cover object-center md:hidden block"
           />
           <p className="text-primary text-md font-normal w-3/4  md:text-left text-center">
@@ -112,6 +129,11 @@ const AcademySection = () => {
           />
           <p className="text-primary text-md font-normal  min-[912px]:text-left text-center">
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+            className="object-cover object-center min-[912px]:hidden block"
+          />
+          <p className="text-primary text-sm font-normal min-[912px]:w-2/4 w-full min-[912px]:text-left text-center">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
             Unlock the secrets of successful trading at our cutting-edge Trading
             Academy! Join our community of skilled traders, master market
             trends, and elevate your financial potential to new heights.
@@ -119,6 +141,7 @@ const AcademySection = () => {
           </p>
         </div>
       </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <div className="flex md:flex-row flex-col -mt-4 justify-between items-center">
         <Image
@@ -135,6 +158,8 @@ const AcademySection = () => {
           </h3>
           <p className="text-primary sm:text-center text-lg font-normal">
 =======
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
       <div className="flex min-[912px]:flex-row flex-col justify-between items-center">
         <Image
           src={theme === "dark" ? "/teaching-dark.svg" : "/teaching-light.png"}
@@ -143,6 +168,7 @@ const AcademySection = () => {
           alt="images"
           className="w-auto h-auto object-cover object-center"
         />
+<<<<<<< HEAD
         <div className="flex flex-col sm:mt-3 sm:pt-4 sm:text-center space-y-2 min-[912px]:items-end items-center">
           <h3 className="text-primary  sm:mt-3 sm:pt-4 sm:text-center  min-[912px]:text-3xl text-2xl font-semibold leading-snug uppercase min-[912px]:w-2/3 w-full min-[912px]:text-right text-left">
             <span className="text-[#4168B7] dark:text-[#A77700]">200+</span>{" "}
@@ -150,10 +176,19 @@ const AcademySection = () => {
           </h3>
           <p className="text-primary sm:text-center text-md font-normal">
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+        <div className="flex flex-col space-y-2 min-[912px]:items-end items-center">
+          <h3 className="text-primary min-[912px]:text-3xl text-2xl font-semibold leading-snug uppercase min-[912px]:w-2/3 w-full min-[912px]:text-right text-left">
+            <span className="text-[#4168B7] dark:text-[#A77700]">200+</span>{" "}
+            Students trust us
+          </h3>
+          <p className="text-primary text-sm font-normal">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
             Be part of the next set of students Eloquent academy enrolls.
           </p>
         </div>
       </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <div className="flex min-[912px]:flex-row   flex-col min-[912px]:space-x-10 min-[912px]:space-y-0 space-y-8 justify-center items-center">
         <div className="flex flex-col h-[240px] hover:dark:bg-[#A77700] hover:dark:text-[#000000] hover:dark:border-[#A77700] border-2 border-white border-b-0 bg-gradient-to-b  dark:from-gray-700 hover:dark:from-[#ffffff] hover:from-[#ffffff]    p-6 rounded-3xl space-y-6 w-[300px]">
@@ -178,11 +213,23 @@ const AcademySection = () => {
           <div className="flex flex-col space-y-4">
             <p className="text-primary text-base hover:dark:text-[#000000] font-normal">
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+      <div className="flex min-[912px]:flex-row flex-col min-[912px]:space-x-10 min-[912px]:space-y-0 space-y-8 justify-center items-center">
+        <div className="flex flex-col h-[240px] border-2 border-white border-b-0 bg-gradient-to-b from-[#FFFFFF] dark:from-[#000000] dark:to-[#FFFFFF] p-6 rounded-3xl space-y-6 w-[300px]">
+          <div className="flex min-[912px]:flex-col flex-row min-[912px]:space-x-0 space-x-4 min-[912px]:space-y-2 space-y-0 min-[912px]:items-start items-center">
+            <StatusUp className="w-10 h-10" />
+            <h3 className="text-primary text-xl font-semibold">Defi Trading</h3>
+            <div className="w-[40px] min-[912px]:block hidden border border-[#4168B7] dark:border-[#A77700]"></div>
+          </div>
+          <div className="flex flex-col space-y-4">
+            <p className="text-primary text-base font-normal">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
               Your data is safe and secured with us. None of your data is shared
               with a third party company.
             </p>{" "}
           </div>
         </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
         <div className="flex flex-col h-[240px] hover:dark:bg-[#A77700] hover:dark:text-[#000000] hover:dark:border-[#A77700] border-2 border-white border-b-0 bg-gradient-to-b hover:dark:from-[#ffffff] dark:from-gray-700 hover:from-[#ffffff]  p-6 rounded-3xl space-y-6 w-[300px]">
           <div className="flex min-[912px]:flex-col  hover:dark:text-[#000000] flex-row min-[912px]:space-x-0 space-x-4 min-[912px]:space-y-2 space-y-0 min-[912px]:items-start items-center">
@@ -221,22 +268,43 @@ const AcademySection = () => {
           </div>
           <div className="flex flex-col space-y-4">
             <p className="text-primary text-base hover:dark:text-[#000000] font-normal">
+=======
+        <div className="flex flex-col border-2 border-white border-b-0 bg-gradient-to-b from-[#FFFFFF] dark:from-[#000000] dark:to-[#FFFFFF] p-6 rounded-3xl space-y-6 w-[300px]">
+          <div className="flex min-[912px]:flex-col flex-row min-[912px]:space-x-0 space-x-4 min-[912px]:space-y-2 space-y-0 min-[912px]:items-start items-center">
+            <Chart className="w-10 h-10" />
+            <h3 className="text-primary text-xl font-semibold">P2P Trading</h3>
+            <div className="w-[40px] min-[912px]:block hidden border border-[#4168B7] dark:border-[#A77700]"></div>
+          </div>
+          <div className="flex flex-col space-y-4">
+            <p className="text-primary text-base font-normal">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
               The platform is designed to be as simple as possible so our users
               can trade with ease.
             </p>
           </div>
         </div>
+<<<<<<< HEAD
         <div className="flex flex-col h-[240px] hover:dark:bg-[#A77700] hover:dark:text-[#000000] hover:dark:border-[#A77700] border-2 border-white border-b-0 bg-gradient-to-b from-[#FFFFFF]   p-6 rounded-3xl space-y-6 w-[300px]">
           <div className="flex min-[912px]:flex-col flex-row min-[912px]:space-x-0 space-x-4 min-[912px]:space-y-2 space-y-0 min-[912px]:items-start items-center">
             <Diagram className="w-10 h-10" />
             <h3 className="text-primary text-xl hover:dark:text-[#000000] font-semibold">
+=======
+        <div className="flex flex-col border-2 border-white border-b-0 bg-gradient-to-b from-[#FFFFFF] dark:from-[#000000] dark:to-[#FFFFFF] p-6 rounded-3xl space-y-6 w-[300px]">
+          <div className="flex min-[912px]:flex-col flex-row min-[912px]:space-x-0 space-x-4 min-[912px]:space-y-2 space-y-0 min-[912px]:items-start items-center">
+            <Diagram className="w-10 h-10" />
+            <h3 className="text-primary text-xl font-semibold">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
               Futures Trading
             </h3>
             <div className="w-[40px] min-[912px]:block hidden border border-[#4168B7] dark:border-[#A77700]"></div>
           </div>
           <div className="flex flex-col space-y-4">
+<<<<<<< HEAD
             <p className="text-primary hover:dark:text-[#000000] text-base font-normal">
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+            <p className="text-primary text-base font-normal">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
               The platform is designed to be as simple as possible so our users
               can trade with ease.
             </p>
@@ -247,10 +315,14 @@ const AcademySection = () => {
         <div className="flex min-[912px]:flex-row flex-col justify-between items-center">
           <div className="flex flex-col space-y-8 min-[912px]:items-start items-center">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <h3 className="font-medium  min-[912px]:text-5xl text-xl min-[912px]:w-7/12 w-full leading-normal min-[912px]:text-left text-center">
 =======
             <h3 className="font-medium min-[912px]:text-5xl text-xl min-[912px]:w-7/12 w-full leading-normal min-[912px]:text-left text-center">
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+            <h3 className="font-medium min-[912px]:text-5xl text-xl min-[912px]:w-7/12 w-full leading-normal min-[912px]:text-left text-center">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
               Become a{" "}
               <span className="text-[#4168B7] dark:text-[#A77700]">
                 certified trader
@@ -268,19 +340,30 @@ const AcademySection = () => {
               Get details about Eloquent Exchange&apos;s next session of classes
               and enroll.
             </p>
+<<<<<<< HEAD
             {/* <div>
+=======
+            <div>
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
               <Button
                 variant="custom"
                 className={cn(
                   "rounded-tl-none rounded-br-none opacity-70 hover:opacity-100 transition-opacity duration-300 ease-in-out min-[912px]:flex hidden",
                   font.className
                 )}
+<<<<<<< HEAD
                 onClick={() => router.push("/dashboard/buy&sell/")}
                 disabled
               >
                 Enroll <Data className="ml-2 h-4 w-4" />
               </Button>
             </div> */}
+=======
+              >
+                Enroll <Data className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           </div>
           <Image
             src="/certificate.png"
@@ -289,17 +372,35 @@ const AcademySection = () => {
             height={300}
             className="w-auto h-auto object-cover object-center min-[912px]:flex hidden"
           />
+<<<<<<< HEAD
         </div>
       </div>
       <div className="flex min-[912px]:flex-row flex-col min-[9122px]:space-y-0 space-y-10  justify-center items-center">
+=======
+          <Button
+            variant="custom"
+            className={cn(
+              "rounded-tl-none rounded-br-none opacity-70 hover:opacity-100 transition-opacity duration-300 ease-in-out min-[912px]:flex hidden",
+              font.className
+            )}
+          >
+            Enroll <Data className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+      <div className="flex min-[912px]:flex-row flex-col min-[9122px]:space-y-0 space-y-10 justify-between items-center">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
         <div className="flex flex-col space-y-8 relative items-center">
           <div className="flex space-x-4">
             <h3 className="min-[912px]:hidden block text-3xl font-normal">1</h3>
             <h3 className="text-2xl font-normal z-10">Become a member</h3>
           </div>{" "}
+<<<<<<< HEAD
           <p className="block bg-gradient-to-b from-black dark:from-white text-transparent bg-clip-text max-[912px]:hidden lg:text-4xl text-3xl mb-2 font-bold">
             1
           </p>
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           <div className="min-[912px]:absolute hidden bg-gradient-to-b from-black dark:from-white text-transparent bg-clip-text font-bold text-6xl z-0">
             1
           </div>
@@ -308,14 +409,21 @@ const AcademySection = () => {
             dashboard and begin your lessons.{" "}
           </p>
         </div>
+<<<<<<< HEAD
         <div className="flex flex-col space-y-8 min-[912px]:relative items-center">
+=======
+        <div className="flex flex-col space-y-8 relative items-center">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           <div className="flex space-x-4">
             <h3 className="min-[912px]:hidden block text-3xl font-normal">2</h3>
             <h3 className="text-2xl font-normal z-10">Watch the lesson</h3>
           </div>
+<<<<<<< HEAD
           <p className="block bg-gradient-to-b from-black dark:from-white text-transparent bg-clip-text max-[912px]:hidden lg:text-4xl text-3xl mb-2 font-bold">
             2
           </p>
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           <div className="min-[912px]:absolute hidden bg-gradient-to-b from-black dark:from-white text-transparent bg-clip-text font-bold text-6xl z-0">
             2
           </div>
@@ -329,9 +437,12 @@ const AcademySection = () => {
             <h3 className="min-[912px]:hidden block text-3xl font-normal">3</h3>
             <h3 className="text-2xl font-normal z-10">Community legend</h3>
           </div>
+<<<<<<< HEAD
           <p className="block bg-gradient-to-b from-black dark:from-white text-transparent bg-clip-text max-[912px]:hidden lg:text-4xl text-3xl mb-2 font-bold">
             3
           </p>
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           <div className="min-[912px]:absolute hidden bg-gradient-to-b from-black dark:from-white text-transparent bg-clip-text font-bold text-6xl z-0">
             3
           </div>
@@ -360,6 +471,7 @@ const AcademySection = () => {
         />
       </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       <div className="flex min-[912px]:flex-row flex-col min-[912px]:space-y-0 justify-center space-y-4 md:space-x-5 items-center">
         <div className="flex hover:fill-black hover:text-black flex-col space-y-6 p-8 border-4 border-b-0 rounded-3xl items-center border-white bg-transparent bg-gradient-to-b from-white dark:from-black">
@@ -377,6 +489,11 @@ const AcademySection = () => {
           </svg>
 
           {/* <Image
+=======
+      <div className="flex min-[912px]:flex-row flex-col min-[912px]:space-y-0 space-y-8 justify-between items-center">
+        <div className="flex flex-col space-y-6 p-8 border-4 border-b-0 rounded-3xl items-center border-white bg-transparent bg-gradient-to-b from-white dark:from-black">
+          <Image
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
             src={
               theme === "dark"
                 ? "/small-logo-dark.svg"
@@ -386,7 +503,11 @@ const AcademySection = () => {
             width={100}
             height={100}
             className="w-auto h-auto object-cover object-center"
+<<<<<<< HEAD
           /> */}
+=======
+          />
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           <ul className="list-disc space-y-4 text-sm font-normal text-primary">
             <li>The Zero To Funded Course</li>
             <li>The Eloquent Service</li>
@@ -404,6 +525,7 @@ const AcademySection = () => {
             <li>Billed Annually</li>
           </ul>
           <p className="flex flex-col items-center">
+<<<<<<< HEAD
             <span className="font-bold text-xl">{pro?.name} Package</span>
             <span className="font-bold text-lg">${pro?.price}</span>
           </p>
@@ -422,6 +544,24 @@ const AcademySection = () => {
             />
           </svg>
 
+=======
+            <span className="font-bold text-xl">Pro Package</span>
+            <span className="font-bold text-lg">$300</span>
+          </p>
+        </div>
+        <div className="flex flex-col space-y-6 p-8 border-4 border-b-0 rounded-3xl items-center border-white bg-transparent bg-gradient-to-b from-white dark:from-black">
+          <Image
+            src={
+              theme === "dark"
+                ? "/small-logo-dark.svg"
+                : "/small-logo-light.svg"
+            }
+            alt="logo"
+            width={100}
+            height={100}
+            className="w-auto h-auto object-cover object-center"
+          />
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           <ul className="list-disc space-y-4 text-sm font-normal text-primary">
             <li>The Zero To Funded Course</li>
             <li>The Eloquent Service</li>
@@ -439,6 +579,7 @@ const AcademySection = () => {
             <li>Billed Annually</li>
           </ul>
           <p className="flex flex-col items-center">
+<<<<<<< HEAD
             <span className="font-bold text-xl">
               {intermediate?.name} Package
             </span>
@@ -459,6 +600,24 @@ const AcademySection = () => {
             />
           </svg>
 
+=======
+            <span className="font-bold text-xl">Intermediate Package</span>
+            <span className="font-bold text-lg">$270</span>
+          </p>
+        </div>
+        <div className="flex flex-col space-y-6 p-8 border-4 border-b-0 rounded-3xl items-center border-white bg-transparent bg-gradient-to-b from-white dark:from-black">
+          <Image
+            src={
+              theme === "dark"
+                ? "/small-logo-dark.svg"
+                : "/small-logo-light.svg"
+            }
+            alt="logo"
+            width={100}
+            height={100}
+            className="w-auto h-auto object-cover object-center"
+          />
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           <ul className="list-disc space-y-4 text-sm font-normal text-primary">
             <li>The Zero To Funded Course</li>
             <li>The Eloquent Service</li>
@@ -476,12 +635,20 @@ const AcademySection = () => {
             <li>Billed Annually</li>
           </ul>
           <p className="flex flex-col items-center">
+<<<<<<< HEAD
             <span className="font-bold text-xl">{beginner?.name} Package</span>
             <span className="font-bold text-lg">${beginner?.price}</span>
           </p>
         </div>
       </div>
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+            <span className="font-bold text-xl">Beginners Package</span>
+            <span className="font-bold text-lg">$150</span>
+          </p>
+        </div>
+      </div>
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
       <div className="flex justify-center items-center">
         <Link href="/sign-up">
           <Button
@@ -490,7 +657,10 @@ const AcademySection = () => {
               "rounded-tl-none rounded-br-none opacity-70 hover:opacity-100 transition-opacity duration-300 ease-in-out",
               font.className
             )}
+<<<<<<< HEAD
             onClick={() => router.push("/dashboard/buy&sell/")}
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           >
             Start Now <Data className="h-4 w-4 ml-2" />
           </Button>

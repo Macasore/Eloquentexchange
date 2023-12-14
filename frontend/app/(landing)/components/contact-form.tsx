@@ -86,7 +86,11 @@ const ContactForm = () => {
                   <Input
                     disabled={isLoading}
                     placeholder="Name"
+<<<<<<< HEAD
                     className="bg-gradient-to-b dark:placeholder-white from-[#4168B7] dark:from-[#A77700] border-none focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 placeholder:text-primary"
+=======
+                    className="bg-gradient-to-b from-[#4168B7] dark:from-[#A77700] border-none focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 placeholder:text-primary"
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                     {...field}
                   />
                 </FormControl>
@@ -106,7 +110,11 @@ const ContactForm = () => {
                   <Input
                     disabled={isLoading}
                     placeholder="Email"
+<<<<<<< HEAD
                     className="bg-gradient-to-b dark:placeholder-white from-[#4168B7] dark:from-[#A77700] border-none focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 placeholder:text-primary"
+=======
+                    className="bg-gradient-to-b from-[#4168B7] dark:from-[#A77700] border-none focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 placeholder:text-primary"
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                     {...field}
                   />
                 </FormControl>
@@ -127,7 +135,11 @@ const ContactForm = () => {
                 <Textarea
                   disabled={isLoading}
                   placeholder="Message"
+<<<<<<< HEAD
                   className="resize-none dark:placeholder-white bg-gradient-to-b from-[#4168B7] dark:from-[#A77700] placeholder:text-primary border-none focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
+=======
+                  className="resize-none bg-gradient-to-b from-[#4168B7] dark:from-[#A77700] placeholder:text-primary border-none focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                   rows={10}
                   {...field}
                 />

@@ -1,6 +1,10 @@
 "use client";
 
+<<<<<<< HEAD
 import { buyRoute, getCoinList, getWalletListRoute } from "@/lib/helpers";
+=======
+import { buyRoute } from "@/lib/helpers";
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -27,6 +31,7 @@ import axios from "axios";
 import { ArrowSwapHorizontal, BitcoinRefresh } from "iconsax-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+<<<<<<< HEAD
 import * as z from "zod";
 import isAuth from "@/components/isAuth";
 import { useEffect, useState } from "react";
@@ -40,21 +45,49 @@ const formSchema = z.object({
     .min(24, { message: "Enter a valid wallet address" })
     .max(62, { message: "Enter a valid wallet address" }),
   coin_type: z.string().min(1, {
+=======
+// import toast from "react-hot-toast";
+import * as z from "zod";
+
+interface BuyProps {}
+
+const formSchema = z.object({
+  network: z.string().min(1, { message: "Select a network" }),
+  walletAddress: z
+    .string()
+    .min(24, { message: "Enter a valid wallet address" })
+    .max(62, { message: "Enter a valid wallet address" }),
+  coinType: z.string().min(1, {
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
     message: "Coin type is required",
   }),
   amount: z.coerce.number().min(0, { message: "Amount cannot be negative" }),
 });
 
+<<<<<<< HEAD
 const Buypage = () => {
   const router = useRouter();
   const [enteredAmount, setEnteredAmount] = useState<number | undefined>(
     undefined
   );
   const [coinlist, setCoinList] = useState<any[]>([]);
+=======
+const onPaste = () => {
+  navigator.clipboard.readText().then((text) => {
+    if (text) {
+      formSchema.parse(text);
+    }
+  });
+};
+
+const Buypage = () => {
+  const router = useRouter();
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       network: "",
+<<<<<<< HEAD
       wallet_address: "",
       coin_type: "",
       amount: 0,
@@ -98,6 +131,22 @@ const Buypage = () => {
   };
   return (
     <div className="flex justify-center flex-col space-y-8 items-center py-12">
+=======
+      walletAddress: "",
+      coinType: "",
+      amount: 0,
+    },
+  });
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    await axios.post(buyRoute, data);
+  };
+  return (
+    <div className="flex justify-center flex-col space-y-8 items-center py-12">
+      <p className="text-primary font-medium text-lg min-[454px]:text-left text-center">
+        Buying <span className="font-semibold">$10000</span> worth of Litecoin
+        at <span className="font-semibold">₦84600000.00</span>
+      </p>
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
       <p className="text-primary font-medium">
         Kindly provide your wallet address
       </p>
@@ -110,7 +159,11 @@ const Buypage = () => {
             >
               <FormField
                 control={form.control}
+<<<<<<< HEAD
                 name="coin_type"
+=======
+                name="coinType"
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-normal text-primary text-base">
@@ -134,7 +187,10 @@ const Buypage = () => {
                           <SelectItem value="ethereum">Ethereum</SelectItem>
                           <SelectItem value="usdt">USDT</SelectItem>
                           <SelectItem value="dodge">Dodge</SelectItem>
+<<<<<<< HEAD
                           <SelectItem value="bnb">BNB</SelectItem>
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -149,6 +205,7 @@ const Buypage = () => {
                   <FormItem className="space-y-4">
                     <FormLabel className="font-normal flex justify-between">
                       <span>Amount</span>{" "}
+<<<<<<< HEAD
                       <span className="text-primary font-semibold ">
                         <ScrollArea className="w-36 h-5 items-center whitespace-nowrap rounded-md">
                           <div className="w-fit space-x-8 p-0">
@@ -163,6 +220,10 @@ const Buypage = () => {
                           </div>
                           <ScrollBar orientation="horizontal" />
                         </ScrollArea>
+=======
+                      <span className="text-muted-foreground">
+                        Rate: {OFFICIAL_RATES} / %
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                       </span>
                     </FormLabel>
                     <FormControl>
@@ -208,6 +269,7 @@ const Buypage = () => {
                       <SelectContent>
                         <SelectGroup>
                           <SelectItem value="mtn mobile money">
+<<<<<<< HEAD
                             Trc20
                           </SelectItem>
                           <SelectItem value="skrill">Eth(ERC20)</SelectItem>
@@ -218,6 +280,22 @@ const Buypage = () => {
                           <SelectItem value="airtel mobile money">
                             Doge
                           </SelectItem>
+=======
+                            MTN Mobile Money
+                          </SelectItem>
+                          <SelectItem value="skrill">Skrill</SelectItem>
+                          <SelectItem value="orange mobile money">
+                            Orange Mobile Money
+                          </SelectItem>
+                          <SelectItem value="neteller">NETELLER</SelectItem>
+                          <SelectItem value="airtel mobile money">
+                            Airtel Mobile Money
+                          </SelectItem>
+                          <SelectItem value="bank transfer">
+                            Bank Transfer
+                          </SelectItem>
+                          <SelectItem value="wise">Wise</SelectItem>
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -227,7 +305,11 @@ const Buypage = () => {
               />
               <FormField
                 control={form.control}
+<<<<<<< HEAD
                 name="wallet_address"
+=======
+                name="walletAddress"
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-normal text-primary text-base">
@@ -258,4 +340,8 @@ const Buypage = () => {
   );
 };
 
+<<<<<<< HEAD
 export default isAuth(Buypage);
+=======
+export default Buypage;
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c

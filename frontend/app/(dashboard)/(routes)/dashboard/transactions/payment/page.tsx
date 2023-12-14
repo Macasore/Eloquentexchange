@@ -27,8 +27,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { BitcoinRefresh } from "iconsax-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+<<<<<<< HEAD
 import isAuth from "@/components/isAuth";
 import { useRouter } from "next/navigation";
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 
 const formSchema = z.object({
   paymentMethod: z.string({
@@ -37,11 +40,15 @@ const formSchema = z.object({
 });
 
 const PaymentPage = () => {
+<<<<<<< HEAD
   const router = useRouter();
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
+<<<<<<< HEAD
   const onSubmit = () => {
     const paymentLink = localStorage.getItem("link");
     const flutterwaveLink = paymentLink?.toString();
@@ -53,6 +60,10 @@ const PaymentPage = () => {
     } else {
       router.push("/dashboard/transactions/payment/mobile_money");
     }
+=======
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    console.log(data);
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
   };
   return (
     <div className="flex justify-center items-center pt-12">
@@ -88,10 +99,28 @@ const PaymentPage = () => {
                       </FormControl>
                       <SelectContent>
                         <SelectGroup>
+<<<<<<< HEAD
                           <SelectItem value="card">Card</SelectItem>
                           <SelectItem value="bank transfer">
                             Mobile Money (Bank Transfer)
                           </SelectItem>
+=======
+                          <SelectItem value="mtn mobile money">
+                            MTN Mobile Money
+                          </SelectItem>
+                          <SelectItem value="skrill">Skrill</SelectItem>
+                          <SelectItem value="orange mobile money">
+                            Orange Mobile Money
+                          </SelectItem>
+                          <SelectItem value="neteller">NETELLER</SelectItem>
+                          <SelectItem value="airtel mobile money">
+                            Airtel Mobile Money
+                          </SelectItem>
+                          <SelectItem value="bank transfer">
+                            Bank Transfer
+                          </SelectItem>
+                          <SelectItem value="wise">Wise</SelectItem>
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -110,4 +139,8 @@ const PaymentPage = () => {
   );
 };
 
+<<<<<<< HEAD
 export default isAuth(PaymentPage);
+=======
+export default PaymentPage;
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c

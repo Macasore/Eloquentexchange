@@ -16,11 +16,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+<<<<<<< HEAD
 import isAuth from "@/components/isAuth";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getUsers } from "@/lib/helpers";
 import { getCookie } from "@/lib/utils";
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -28,13 +31,17 @@ const formSchema = z.object({
 });
 
 const ProfilePage = () => {
+<<<<<<< HEAD
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
+<<<<<<< HEAD
   useEffect(() => {
     const fetchdata = async () => {
       const accessToken = getCookie("access_token");
@@ -65,6 +72,8 @@ const ProfilePage = () => {
     fetchdata();
   }, []);
 
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     console.log(data);
   };
@@ -89,7 +98,11 @@ const ProfilePage = () => {
                       <Input
                         className="bg-transparent"
                         readOnly
+<<<<<<< HEAD
                         value={email}
+=======
+                        value="eloquentexchange.ioa.co.wxa.zzyzk"
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                       />
                     </FormControl>
                   </FormItem>
@@ -107,7 +120,11 @@ const ProfilePage = () => {
                       <Input
                         className="bg-transparent"
                         readOnly
+<<<<<<< HEAD
                         value={fullName}
+=======
+                        value="Idan of the crypto exchange world"
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                       />
                     </FormControl>
                   </FormItem>
@@ -132,4 +149,8 @@ const ProfilePage = () => {
   );
 };
 
+<<<<<<< HEAD
 export default isAuth(ProfilePage);
+=======
+export default ProfilePage;
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c

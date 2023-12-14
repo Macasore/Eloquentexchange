@@ -15,20 +15,31 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
+<<<<<<< HEAD
 import { Button } from "@/components/ui/button";
 import { DirectRight } from "iconsax-react";
 import { cn } from "@/lib/utils";
+=======
+// import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { Apple, DirectRight } from "iconsax-react";
+import { absoluteUrl, cn } from "@/lib/utils";
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
+<<<<<<< HEAD
 import { googleOAuth, signUpRoute } from "@/lib/helpers";
 import { useEffect } from "react";
 <<<<<<< HEAD
 import React, { useRef, useState } from "react";
 =======
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+import { authRoute } from "@/routes/route";
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 
 const formSchema = z
   .object({
@@ -43,11 +54,15 @@ const formSchema = z
       .min(8, { message: "Password must be at least 8 characters long" }),
   })
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   .refine((data: any) => data.password === data.re_password, {
 =======
   .refine((data) => data.password === data.re_password, {
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+  .refine((data) => data.password === data.re_password, {
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
@@ -56,9 +71,12 @@ const font = Revalia({ subsets: ["latin"], weight: ["400"] });
 
 const SignUpPage = () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [buttonText, setButtonText] = useState("Create Account");
 =======
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
   const { resolvedTheme } = useTheme();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -73,6 +91,7 @@ const SignUpPage = () => {
 
   const router = useRouter();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   function handleClick() {
     setButtonText("Autheticating...");
@@ -114,6 +133,26 @@ const SignUpPage = () => {
       } else {
         console.error("Error:", err.message);
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+  const googleOAuthUrl = absoluteUrl(
+    "/auth/o/google-oauth2/?redirect_uri=http://localhost:3000/dashboard"
+  );
+
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    try {
+      const res = await axios.post(authRoute, data);
+      toast.success("Account created successfully");
+      form.reset();
+    } catch (err: any) {
+      if (err?.response?.status === 400) {
+        toast.error("Email already exists.");
+      } else if (err?.response?.status === 500) {
+        toast.error("Something went wrong");
+      } else if (err?.request) {
+        console.error("No response received from the server");
+      } else {
+        console.error("Error:", err.message);
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
       }
     } finally {
       router.refresh();
@@ -122,6 +161,7 @@ const SignUpPage = () => {
 
   const isLoading = form.formState.isSubmitting;
 
+<<<<<<< HEAD
   const googleCallback = async () => {
     try {
       const response = await axios.get(googleOAuth);
@@ -149,6 +189,10 @@ const SignUpPage = () => {
 =======
     <div className="flex min-[1000px]:flex-row flex-col min-[1000px]:justify-between min-[1000px]:items-start items-center pt-12 px-10 relative min-h-screen min-[912px]:bg-[url('/rockets.svg')] bg-none bg-center bg-no-repeat bg-contain bg-fixed">
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+  return (
+    <div className="flex min-[1000px]:flex-row flex-col min-[1000px]:justify-between min-[1000px]:items-start items-center pt-12 px-10 relative min-h-screen bg-[url('/rockets.svg')] bg-center bg-no-repeat bg-contain bg-fixed">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
       <div className="flex-col items-start gap-y-8 min-[1000px]:flex hidden">
         <Image
           src="/coin.svg"
@@ -159,10 +203,14 @@ const SignUpPage = () => {
         />
         <h1 className="text-5xl font-medium text-primary leading-snug">
 <<<<<<< HEAD
+<<<<<<< HEAD
           Create Account with <br /> Eloquent
 =======
           Sign up with <br /> Eloquent
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+          Sign up with <br /> Eloquent
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
         </h1>
         <p className="font-medium text-base">
           Already have an account? click here to{" "}
@@ -174,12 +222,17 @@ const SignUpPage = () => {
           </Link>
         </p>
       </div>
+<<<<<<< HEAD
       <div className="flex flex-col space-y-8 min-[912px]:w-[500px] w-full">
 <<<<<<< HEAD
         {/* <div className="flex justify-center">
 =======
         <div className="flex justify-center">
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+      <div className="flex flex-col space-y-8 w-[500px]">
+        <div className="flex justify-center">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           <Image
             src={
               resolvedTheme === "dark"
@@ -191,6 +244,7 @@ const SignUpPage = () => {
             alt="signup_logo"
             className="min-[1000px]:hidden block"
           />
+<<<<<<< HEAD
 <<<<<<< HEAD
         </div> */}
         <div className="flex flex-col space-y-8 min-[912px]:items-start items-center">
@@ -214,6 +268,8 @@ const SignUpPage = () => {
           </p>
         </div>
 =======
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
         </div>
         <h1 className="text-4xl font-semibold text-primary min-[1000px]:block hidden">
           Create Account
@@ -221,14 +277,21 @@ const SignUpPage = () => {
         <p className="text-muted-foreground min-[1000px]:block hidden">
           Enter your credentials to create an account.
         </p>
+<<<<<<< HEAD
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
         <div>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col space-y-8 min-[1000px]:p-0 px-4"
             >
+<<<<<<< HEAD
               <div className="flex min-[912px]:flex-row flex-col min-[912px]:space-x-8 min-[912px]:space-y-0 space-y-8">
+=======
+              <div className="flex space-x-8">
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                 <FormField
                   control={form.control}
                   name="first_name"
@@ -256,10 +319,14 @@ const SignUpPage = () => {
                           disabled={isLoading}
                           placeholder="Last name"
 <<<<<<< HEAD
+<<<<<<< HEAD
                           className="border-t-0 font-medium text-primary rounded-none border-x-0 dark:border-b-[#A77700] border-b-[#F7931A80] w-full border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent bg-transparent focus-visible:ring-offset-0"
 =======
                           className="border-t-0 font-medium text-primary rounded-none border-x-0 dark:border-b-[#A77700] border-b-[#F7931A80] border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent bg-transparent focus-visible:ring-offset-0"
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+                          className="border-t-0 font-medium text-primary rounded-none border-x-0 dark:border-b-[#A77700] border-b-[#F7931A80] border-b-2 outline-none focus-visible:ring-0 focus-visible:ring-transparent bg-transparent focus-visible:ring-offset-0"
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                           {...field}
                         />
                       </FormControl>
@@ -325,6 +392,7 @@ const SignUpPage = () => {
               <div className="flex items-center w-full justify-end"></div>
               <Button
 <<<<<<< HEAD
+<<<<<<< HEAD
                 onClick={handleClick}
                 style={{ borderRadius: "30px" }}
                 className="w-full text-white py-8 rounded-lg bg-[#4168B7] hover:bg-primary text-lg dark:bg-[#A77700] dark:hover:bg-primary py-8 hover:text-white dark:hover:text-black"
@@ -349,6 +417,8 @@ const SignUpPage = () => {
               </div>
             </div>
 =======
+=======
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
                 className="w-full text-white bg-[#4168B7] hover:bg-primary text-lg dark:bg-[#A77700] dark:hover:bg-primary hover:text-white dark:hover:text-black"
                 variant="default"
               >
@@ -356,10 +426,16 @@ const SignUpPage = () => {
                 <DirectRight className="w-5 h-5 ml-2" variant="Linear" />
               </Button>
             </form>
+<<<<<<< HEAD
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
           </Form>
         </div>
         {/* <p
+=======
+          </Form>
+        </div>
+        <p
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           className={cn(
             "text-lg font-medium uppercase text-center",
             font.className
@@ -369,12 +445,22 @@ const SignUpPage = () => {
         </p>
         <div className="flex justify-center">
           <div
+<<<<<<< HEAD
             onClick={() => googleCallback()}
+=======
+            onClick={() => {
+              router.push(googleOAuthUrl);
+            }}
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
             className="w-full h-10 rounded-lg border-[#A77700] border flex items-center justify-center cursor-pointer group"
           >
             <FcGoogle className="w-6 h-6 group-hover:scale-110" />
           </div>
+<<<<<<< HEAD
         </div> */}
+=======
+        </div>
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
       </div>
     </div>
   );

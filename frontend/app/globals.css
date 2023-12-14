@@ -14,6 +14,7 @@ body,
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .marquee {
   min-width: 100%;
   line-height: 50px;
@@ -39,6 +40,9 @@ body,
 =======
 
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 
 @layer base {
   :root {
@@ -115,7 +119,11 @@ body,
     @apply bg-background text-foreground;
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
 >>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
+=======
+}
+>>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
