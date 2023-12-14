@@ -1,15 +1,10 @@
 "use client";
 
-<<<<<<< HEAD
 import { getRefferalRoute } from "@/lib/helpers";
-=======
-import { getRefferalRoute } from "@/routes/route";
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "axios";
 import { useEffect, useState } from "react";
-<<<<<<< HEAD
 import { getCookie } from "@/lib/utils";
 import isAuth from "@/components/isAuth";
 
@@ -39,25 +34,6 @@ const ReferPage = () => {
       }
     };
 
-=======
-
-const ReferPage = () => {
-  const [referralId, setReferralId] = useState<string | null>();
-
-  useEffect(() => {
-    const fetchdata = async () => {
-      try {
-        const response = await axios.get(getRefferalRoute);
-        const responseData = response.data;
-        const referralCodes = responseData.referral_codes;
-        if (referralCodes && referralCodes.length > 0) {
-          setReferralId(referralCodes[0]);
-        }
-      } catch (error) {
-        console.error("Error", error);
-      }
-    };
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
     fetchdata();
   }, []);
 
@@ -80,11 +56,7 @@ const ReferPage = () => {
           <Label htmlFor="total number of referrals">
             Total Number of Referrals
           </Label>
-<<<<<<< HEAD
           <Input readOnly value="0" className="bg-transparent text-center" />
-=======
-          <Input readOnly value="$0" className="bg-transparent text-center" />
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
         </div>
         <div className="flex flex-col items-start space-y-4">
           <Label htmlFor="balance and total earnings">
@@ -97,8 +69,4 @@ const ReferPage = () => {
   );
 };
 
-<<<<<<< HEAD
 export default isAuth(ReferPage);
-=======
-export default ReferPage;
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c

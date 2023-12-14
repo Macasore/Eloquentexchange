@@ -1,10 +1,6 @@
 "use client";
 
-<<<<<<< HEAD
 import { resetEmailRoute } from "@/lib/helpers";
-=======
-import { resetEmailRoute } from "@/routes/route";
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
@@ -23,10 +19,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import * as z from "zod";
-<<<<<<< HEAD
 import isAuth from "@/components/isAuth";
-=======
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 
 const formSchema = z.object({
   current_password: z.string().min(8, {
@@ -126,8 +119,4 @@ const UpdateProfile = () => {
   );
 };
 
-<<<<<<< HEAD
 export default isAuth(UpdateProfile);
-=======
-export default UpdateProfile;
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c

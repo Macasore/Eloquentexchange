@@ -54,18 +54,8 @@ const VerificationPage = () => {
         />
         <Image src="/coin.svg" alt="coin" width={80} height={80} />
       </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
       <div className="flex my-auto flex-col space-y-6">
         <h1 className="text-[48px] text-primary font-normal">
-=======
-      <div className="flex flex-col space-y-8">
-        <h1 className="text-5xl text-primary font-normal">
->>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
-=======
-      <div className="flex flex-col space-y-8">
-        <h1 className="text-5xl text-primary font-normal">
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           Input the verification code.
         </h1>
         <div className="flex flex-col space-y-6 items-center">
@@ -92,19 +82,9 @@ const VerificationPage = () => {
             Didn&apos;t receive a code?
           </div>
           <Button
-<<<<<<< HEAD
-<<<<<<< HEAD
             style={{ borderRadius: "30px" }}
             type="button"
             className="w-5/6 text-white py-8 rounded-lg bg-[#4168B7] hover:bg-primary text-lg dark:bg-[#A77700] dark:hover:bg-primary py-8 hover:text-white dark:hover:text-black"
-=======
-            type="button"
-            className="w-5/6"
->>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
-=======
-            type="button"
-            className="w-5/6"
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
             variant="custom"
             onClick={router.refresh}
           >

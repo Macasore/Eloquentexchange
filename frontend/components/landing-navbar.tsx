@@ -7,17 +7,12 @@ import { ModeToggle } from "./mode-toggle";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import MobileSidebar from "./mobile-navbar";
-<<<<<<< HEAD
 import MobileLandingNavbar from "./landing-mobile-navbar";
 import { useEffect, useState } from "react";
-=======
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 
 const routes = [
   {
     name: "Home",
-<<<<<<< HEAD
-<<<<<<< HEAD
     href: "/",
   },
   {
@@ -35,32 +30,11 @@ const routes = [
   {
     name: "Contact",
     href: "/#contact",
-=======
-=======
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
-    href: "#home",
-  },
-  {
-    name: "About",
-    href: "#about",
-  },
-  {
-    name: "Academy",
-    href: "#academy",
-  },
-  {
-    name: "Contact",
-    href: "#contact",
-<<<<<<< HEAD
->>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
-=======
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
   },
 ];
 
 const LandingNavbar = () => {
   const { resolvedTheme } = useTheme();
-<<<<<<< HEAD
   const [isMounted, setisMounted] = useState(false);
 
   useEffect(() => {
@@ -72,16 +46,7 @@ const LandingNavbar = () => {
   }
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-<<<<<<< HEAD
     // e.preventDefault();
-=======
-    e.preventDefault();
->>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
-=======
-
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    e.preventDefault();
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
     const href = e.currentTarget.href;
     const targetId = href.replace(/.*\#/, "");
     const elem = document.getElementById(targetId);
@@ -105,15 +70,7 @@ const LandingNavbar = () => {
         <div className="hidden min-[912px]:flex w-5 h-5 border-2 dark:border-[#A77700] border-[#4168B7] rounded-full"></div>
         <div className="flex gap-x-8">
           {routes.map((route) => (
-<<<<<<< HEAD
-<<<<<<< HEAD
             <a
-=======
-            <Link
->>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
-=======
-            <Link
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
               key={route.href}
               href={route.href}
               className="text-base min-[912px]:flex hidden font-medium cursor-pointer"
@@ -124,15 +81,7 @@ const LandingNavbar = () => {
                   {route.name}
                 </div>
               </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
             </a>
-=======
-            </Link>
->>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
-=======
-            </Link>
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
           ))}
         </div>
       </div>
@@ -144,11 +93,7 @@ const LandingNavbar = () => {
           </Button>
         </Link>
         <ModeToggle />
-<<<<<<< HEAD
         <MobileLandingNavbar />
-=======
-        <MobileSidebar />
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
       </div>
     </div>
   );

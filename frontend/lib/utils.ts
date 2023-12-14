@@ -8,7 +8,6 @@ export function cn(...inputs: ClassValue[]) {
 export function absoluteUrl(path: string) {
   return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
 }
-<<<<<<< HEAD
 
 export const setCookie = (name: string, value: string, expiresDays: number) => {
   const date = new Date();
@@ -51,5 +50,3 @@ export const getCookie = (name: string): string | null => {
 export const deleteCookie = (name: string) => {
   document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 };
-=======
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c

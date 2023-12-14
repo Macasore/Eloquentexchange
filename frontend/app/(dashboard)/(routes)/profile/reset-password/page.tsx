@@ -1,8 +1,5 @@
 "use client";
-<<<<<<< HEAD
 
-=======
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 import {
   Form,
   FormControl,
@@ -24,10 +21,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-<<<<<<< HEAD
 import isAuth from "@/components/isAuth";
-=======
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 
 const ResetPasswordPage = () => {
   const [visible, setVisible] = useState(false);
@@ -120,8 +114,4 @@ const ResetPasswordPage = () => {
   );
 };
 
-<<<<<<< HEAD
 export default isAuth(ResetPasswordPage);
-=======
-export default ResetPasswordPage;
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c

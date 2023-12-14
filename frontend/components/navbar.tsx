@@ -10,11 +10,7 @@ import {
 } from "iconsax-react";
 import Image from "next/image";
 import Link from "next/link";
-<<<<<<< HEAD
 import { redirect, usePathname, useRouter } from "next/navigation";
-=======
-import { usePathname, useRouter } from "next/navigation";
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
 import { ModeToggle } from "@/components/mode-toggle";
 import MobileSidebar from "@/components/mobile-navbar";
 import { useTheme } from "next-themes";
@@ -32,28 +28,16 @@ export const routes = [
       "/dashboard/transactions/payment",
   },
   {
-<<<<<<< HEAD
-<<<<<<< HEAD
     label: "News",
     icon: ArrowLeft2,
     href: "/news",
   },
   {
-=======
->>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
-=======
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
     label: "Refer and Earn",
     icon: Moneys,
     href: "/refer&earn",
   },
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 8fd29388e9d31c807186c0f278798cbae48e893c
-=======
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
   {
     label: "Profile",
     icon: UserTag,

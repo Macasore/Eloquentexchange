@@ -3,28 +3,17 @@
 import { ColumnDef } from "@tanstack/react-table";
 
 export type Payment = {
-<<<<<<< HEAD
   id: number;
   date: string;
   amount: string;
-=======
-  order_id: string;
-  date: string;
-  amount: number;
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
   status: "Success" | "Pending" | "Rejected";
   transaction_type: "Bought" | "Sold";
 };
 
 export const columns: ColumnDef<Payment>[] = [
   {
-<<<<<<< HEAD
     accessorKey: "id",
     header: "ID",
-=======
-    accessorKey: "order_id",
-    header: "Order ID",
->>>>>>> c387ba2d01e1448e23ea9c21517a1ee2bd593f5c
   },
   {
     accessorKey: "date",
