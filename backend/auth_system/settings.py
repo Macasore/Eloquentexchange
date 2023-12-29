@@ -29,9 +29,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(" ")
+# ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -128,8 +129,8 @@ DATABASES = {
         'HOST': os.getenv('DB_HOST')
     }
 }
-database_url = os.getenv("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse(database_url)
+# database_url = os.getenv("DATABASE_URL")
+# DATABASES["default"] = dj_database_url.parse(database_url)
 
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
 EMAIL_HOST = os.getenv('EMAIL_HOST')
@@ -218,6 +219,8 @@ DJOSER = {
     'SET_USERANME_RETYPE': True,
     'SET_PASSWORD_RETYPE': True,
     'SEND_ACTIVATION_EMAIL': True,
+    'PASSWORD_RESET_CONFIRM_RETYPE': True,
+    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': 'activate/{uid}/{token}',
@@ -244,6 +247,8 @@ DJOSER = {
     'EMAIL' : {
         'activation': 'accounts.email.ActivationEmail',
         'confirmation': 'accounts.email.ConfirmationEmail',
+        'password_reset': 'accounts.email.PasswordResetEmail',
+        'password_changed_confirmation': 'djoser.email.PasswordChangedConfirmationEmail',
     },
     'TEMPLATES': {
         'activation': 'activation/activation.html',  # Use your custom activation template
