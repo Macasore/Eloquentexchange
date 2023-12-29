@@ -273,4 +273,3 @@ FLUTTERWAVE_PUBLIC_KEY = os.getenv('FLUTTERWAVE_PUBLIC_KEY')
 FLUTTERWAVE_SECRET_KEY = os.getenv('FLUTTERWAVE_SECRET_KEY')
 AUTH_USER_MODEL = 'accounts.UserAccount'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
-SITE_URL = "https://eloquentexchange.org"
